@@ -1,0 +1,1415 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>My Portfolio Website</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="icon" href="assets/favicon.ico" />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  </head>
+  <body>
+    <div id="boot" class="boot-screen">
+      <div class="boot-content">
+        <!-- XP-like starting screen (shown after progress completes) -->
+        <div class="xp-starting hidden" id="xp-starting" aria-hidden="true">
+          <img
+            src="assets/xp_logo.png"
+            alt="Microsoft Windows"
+            class="xp-big-logo"
+          />
+          <div class="xp-loading" aria-hidden="true">
+            <div class="xp-progress-container">
+              <div class="block-group">
+                <div class="block"></div>
+                <div class="block"></div>
+                <div class="block"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- bottom-left/right copyright / brand text (XP-style) -->
+        <div class="boot-copyright hidden">
+          Copyright ® Microsoft Corporation
+        </div>
+        <div class="boot-microsoft hidden">Microsoft</div>
+      </div>
+    </div>
+
+    <div id="desktop" class="desktop hidden">
+      <div
+        class="wallpaper"
+        style="
+          background-image: url(&quot;assets/wallpaper.jpg&quot;);
+          background-position: center;
+          background-size: cover;
+        "
+      ></div>
+
+      <div class="icons">
+        <div class="icon" id="recycle" data-click-anim="float">
+          <img
+            src="assets/recycling_bin.png"
+            alt="Recycle Bin"
+            class="icon-art"
+          />
+          <div class="icon-label">Recycle Bin</div>
+        </div>
+
+        <div class="icon" id="my-computer" data-click-anim="float">
+          <img src="assets/mycomputer.png" alt="My Computer" class="icon-art" />
+          <div class="icon-label">My Computer</div>
+        </div>
+
+        <div class="icon" id="resume" data-click-anim="float">
+          <a
+            href="public/Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="icon-link"
+          >
+            <img src="assets/pdf.png" alt="Resume" class="icon-art" />
+            <div class="icon-label">Resume</div>
+          </a>
+        </div>
+
+        <div class="icon" id="linkedin" data-click-anim="float">
+          <a
+            href="https://www.linkedin.com/in/edgar-rasselle-bunquin-magsino-8a40743aa/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="icon-link"
+          >
+            <img src="assets/linkedin.png" alt="LinkedIn" class="icon-art" />
+            <div class="icon-label">Linkedln</div>
+          </a>
+        </div>
+
+
+        <div class="icon" id="contact-me" data-click-anim="float">
+          <img src="assets/outlook.png" alt="Contact Me" class="icon-art" />
+          <div class="icon-label">Contact Me</div>
+        </div>      </div>
+
+      <!-- My Computer window (shown) -->
+      <div
+        id="mycomputer-window"
+        class="winform"
+        role="dialog"
+        aria-label="My Computer"
+      >
+        <div class="titlebar">
+          <div style="display: flex; align-items: center; margin-left: 5px">
+            <strong>My Computer</strong>
+          </div>
+          <div style="display: flex; gap: -2px">
+            <div class="win-btn minimise" aria-label="Minimise">
+              <img src="assets/minimise.png" alt="minimise" class="btn-icon" />
+            </div>
+            <div class="win-btn maximise" aria-label="Maximise">
+              <img src="assets/maximise.png" alt="maximise" class="btn-icon" />
+            </div>
+            <div class="win-btn close" aria-label="Close">
+              <img src="assets/close.png" alt="close" class="btn-icon" />
+            </div>
+          </div>
+        </div>
+
+        <div class="windowborder">
+          <div class="windowsbody">
+            <div class="topwindowsbar">
+              <div class="toolbar">
+                <p class="toolbaritem">File</p>
+                <p class="toolbaritem">Edit</p>
+                <p class="toolbaritem">View</p>
+                <p class="toolbaritem">Tools</p>
+                <p class="toolbaritem">Help</p>
+              </div>
+              <img
+                src="assets/winlogo.png"
+                alt="Windows Logo"
+                class="winlogo"
+              />
+            </div>
+
+            <div class="toolbar_icon">
+              <div class="back_enabled">
+                <img
+                  src="assets/back.png"
+                  alt="Back"
+                  class="toolbar-icon-img"
+                />
+                <span>Back</span>
+                <hr class="button_line" />
+                <img
+                  src="assets/arrow_down.png"
+                  alt="Dropdown"
+                  class="dropdown-icon"
+                />
+              </div>
+              <div class="forward">
+                <img
+                  src="assets/forward.png"
+                  alt="Forward"
+                  class="toolbar-icon-img"
+                />
+              </div>
+              <div class="folder_thumb">
+                <img
+                  src="assets/folder.png"
+                  alt="Folder"
+                  class="toolbar-icon-img"
+                />
+              </div>
+              <div class="vertical_line"></div>
+              <div class="search">
+                <img
+                  src="assets/search.png"
+                  alt="Search"
+                  class="toolbar-icon-img"
+                />
+                <span class="toolbar-label">Search</span>
+              </div>
+              <div class="folders">
+                <img
+                  src="assets/folders.png"
+                  alt="Folders"
+                  class="toolbar-icon-img"
+                />
+                <span class="toolbar-label">Folders</span>
+                <img
+                  src="assets/thumbnail.png"
+                  alt="Thumbnail"
+                  class="thumbnail-icon"
+                />
+                <img
+                  src="assets/arrow_down.png"
+                  alt="Dropdown"
+                  class="dropdown-icon"
+                />
+              </div>
+            </div>
+
+            <div class="bottomwindowsbar">
+              <div class="go">
+                <p style="font-size: 11px; margin: 0 8px">Address</p>
+                <div class="addressbar">
+                  <span>Main Menu</span>
+                  <img
+                    src="assets/arrow_down.png"
+                    alt="Dropdown"
+                    class="dropdown-icon"
+                  />
+                </div>
+                <button
+                  class="goBtn"
+                  type="button"
+                  aria-label="Go"
+                  style="margin-left: 8px"
+                >
+                  <img src="assets/go.png" alt="Go" class="go-img default" />
+                  <img
+                    src="assets/go_hover.png"
+                    alt="Go Hover"
+                    class="go-img hover"
+                  />
+                  <span class="goIcon">Go</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="welcome-page">
+              <div class="accordion_content">
+                <!-- welcome styles moved to src/styles.css -->
+
+                <div class="welcome-main">
+                  <div class="main" id="app-container">
+                    <div id="view-menu">
+                      <h2 class="welcome_text">
+                        Welcome To My Portfolio Website!
+                      </h2>
+                      <p class="subtitle">
+                        Learn more about me by clicking any of the icons below
+                        to get started!
+                      </p>
+                      <div class="content">
+                        <div class="leftpanel">
+                          <a href id="welcome-toggle-about" class="menu-item">
+                            <img
+                              src="assets/users.png"
+                              alt="About"
+                              class="menu-icon"
+                            />
+                            About Me
+                          </a>
+                          <a
+                            href="https://github.com/erbmagsino-cmyk"
+                            target="_blank"
+                            class="menu-item"
+                          >
+                            <img
+                              src="assets/github.png"
+                              alt="GitHub"
+                              class="menu-icon"
+                            />
+                            My GitHub
+                          </a>
+                          <a
+                            href="https://www.linkedin.com/in/edgar-rasselle-bunquin-magsino-8a40743aa/"
+                            target="_blank"
+                            class="menu-item"
+                          >
+                            <img
+                              src="assets/linkedin.png"
+                              alt="LinkedIn"
+                              class="menu-icon"
+                            />
+                            My LinkedIn
+                          </a>
+                          <a href="public/Resume.pdf" class="menu-item">
+                            <img
+                              src="assets/pdf.png"
+                              alt="Resume"
+                              class="menu-icon"
+                            />
+                            My Resume
+                          </a>
+                        </div>
+                        <div class="rightpanel">
+                          <a href id="welcome-toggle-work" class="menu-item">
+                            <img
+                              src="assets/cmd.png"
+                              alt="My Work"
+                              class="menu-icon"
+                            />
+                            My Work
+                          </a>
+                          <a
+                            href="#"
+                            id="welcome-open-contact"
+                            data-open-contact-window="true"
+                            class="menu-item"
+                            ><img
+                              src="assets/outlook.png"
+                              alt="Email"
+                              class="menu-icon"
+                            />
+                            Send Me An Email</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="view-about" class="hidden">
+                      <div class="about-bootstrap-section">
+                        <div class="about-top">
+                          <div class="about-photo-wrap">
+                            <div class="profile-photo-carousel" id="profilePhotoCarousel" aria-label="Profile photo carousel">
+                              <div class="profile-photo-viewport">
+                                <div class="profile-photo-track" id="profilePhotoTrack">
+                                  <div class="profile-photo-slide active">
+                                    <img
+                                      src="assets/profile_1.png"
+                                      class="about-main-photo"
+                                      alt="Profile Photo 1"
+                                      draggable="false"
+                                    />
+                                  </div>
+
+                                  <div class="profile-photo-slide">
+                                    <img
+                                      src="assets/profile_2.png"
+                                      class="about-main-photo"
+                                      alt="Profile Photo 2"
+                                      draggable="false"
+                                    />
+                                  </div>
+
+                                  <div class="profile-photo-slide">
+                                    <img
+                                      src="assets/profile_3.png"
+                                      class="about-main-photo"
+                                      alt="Profile Photo 3"
+                                      draggable="false"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="profile-photo-dots" aria-label="Profile photo navigation">
+                                <button type="button" class="profile-photo-dot active" data-profile-photo-index="0" aria-label="Show profile photo 1"></button>
+                                <button type="button" class="profile-photo-dot" data-profile-photo-index="1" aria-label="Show profile photo 2"></button>
+                                <button type="button" class="profile-photo-dot" data-profile-photo-index="2" aria-label="Show profile photo 3"></button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="about-info">
+                            <h1>Creative Virtual Assistant &amp; Web Developer.</h1>
+
+                            <p class="about-intro">
+                              I am Edgar Rasselle B. Magsino, a writer, 
+                              graphic designer, video editor, and web developer 
+                              based in the Philippines. I create engaging digital 
+                              content, build and manage websites, and help brands 
+                              transform their ideas into meaningful visual and 
+                              online experiences.
+                            </p>
+
+                            <div class="about-details">
+                              <div class="about-detail-col">
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>Birthday:</strong> October 7, 1998
+                                </p>
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>Website:</strong> www.example.com
+                                </p>
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>Phone:</strong> +63917-137-0867
+                                </p>
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>City:</strong> Lipa City, Philippines
+                                </p>
+                              </div>
+
+                              <div class="about-detail-col">
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>Age:</strong> 27
+                                </p>
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>Degree:</strong> Bachelor of Science in Information Technology
+                                </p>
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>Email:</strong> erbmagsino@gmail.com
+                                </p>
+                                <p>
+                                  <span class="about-arrow">›</span>
+                                  <strong>Status:</strong> Employed, open to opportunities
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <p class="about-description">
+                          Since 2021, I have been working as a Virtual Assistant for 
+                          Infinity Websolutions, where I combine creativity, technical 
+                          skills, clear communication, and strong attention to detail. 
+                          My work supports clients in content creation, graphic design, 
+                          video editing, web development, website management, 
+                          and day-to-day digital operations.
+                        </p>
+
+                        <div class="about-stats">
+                          <div class="about-stat">
+                            <div class="about-stat-icon">
+                              <img src="assets/about_1.png" alt="Creative Assets Icon" />
+                            </div>
+                            <div>
+                              <h2>2,000+</h2>
+                              <p>Creative Assets</p>
+                            </div>
+                          </div>
+
+                          <div class="about-stat">
+                            <div class="about-stat-icon">
+                              <img src="assets/about_2.png" alt="Videos Delivered Icon" />
+                            </div>
+                            <div>
+                              <h2>4,000+</h2>
+                              <p>Videos Delivered</p>
+                            </div>
+                          </div>
+
+                          <div class="about-stat">
+                            <div class="about-stat-icon">
+                              <img src="assets/about_3.png" alt="Articles Written Icon" />
+                            </div>
+                            <div>
+                              <h2>200+</h2>
+                              <p>Articles Written</p>
+                            </div>
+                          </div>
+
+                          <div class="about-stat">
+                            <div class="about-stat-icon">
+                              <img src="assets/about_4.png" alt="Workflow Tasks Managed Icon" />
+                            </div>
+                            <div>
+                              <h2>500+</h2>
+                              <p>Workflow Tasks Managed</p>
+                            </div>
+                          </div>
+
+                          <div class="about-stat">
+                            <div class="about-stat-icon">
+                              <img src="assets/about_5.png" alt="Hours Reclaimed Icon" />
+                            </div>
+                            <div>
+                              <h2>15,600+</h2>
+                              <p>Hours Reclaimed</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="view-work" class="hidden">
+                      <div class="main">
+                        <!-- Left Panel -->
+                        <div class="leftpanel">
+                          <div class="accordion">
+                            <!-- Graphics Section -->
+                            <div class="accordion-group">
+                              <div class="win_accordion_title">
+                                Graphics
+                                <img
+                                  src="assets/accordionbtn.png"
+                                  alt="accordionbtn"
+                                  class="accordion-btn"
+                                />
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="graphics-1"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_image.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>Graphics Projects</p>
+                                </div>
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="graphics-social-media-post"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_image.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>Social Media Post</p>
+                                </div>
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="graphics-thumbnails"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_image.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>Thumbnails</p>
+                                </div>
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="graphics-fb-ads"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_image.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>FB Ads</p>
+                                </div>
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="graphics-website"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_image.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>Website</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Videos Section -->
+                            <div class="accordion-group">
+                              <div class="win_accordion_title">
+                                Videos
+                                <img
+                                  src="assets/accordionbtn.png"
+                                  alt="accordionbtn"
+                                  class="accordion-btn"
+                                />
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="videos-long-form"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_video.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>Long Form</p>
+                                </div>
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="videos-short-form"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_video.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>Short Form</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Articles Section -->
+                            <div class="accordion-group">
+                              <div class="win_accordion_title">
+                                Articles
+                                <img
+                                  src="assets/accordionbtn.png"
+                                  alt="accordionbtn"
+                                  class="accordion-btn"
+                                />
+                              </div>
+
+                              <div
+                                class="accordion_content_item"
+                                data-project="articles-1"
+                              >
+                                <div class="accordion_content_text">
+                                  <img
+                                    alt="accordionbtn"
+                                    src="assets/folder_plain.png"
+                                    height="15"
+                                    width="15"
+                                  />
+                                  <p>Articles</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Right Panel -->
+                        <div class="rightpanel">
+                          <!-- Default State -->
+                          <div id="work-welcome" class="body work-panel">
+                            <div class="work-headings">
+                              <h2>Welcome To My Portfolio Section</h2>
+                              <h5 class="bold-italic">
+                                Begin navigation by clicking on a project on the
+                                left.
+                              </h5>
+                              <h5 class="h5-regular">
+                                These are some of the tech stacks I have
+                                experience with!
+                              </h5>
+                            </div>
+                            <div class="content_tech">
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Photoshop-31A8FF?style=flat&logo=adobephotoshop&logoColor=white"
+                                  height="28"
+                                  alt="Photoshop"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Illustrator-FF9A00?style=flat&logo=adobeillustrator&logoColor=white"
+                                  height="28"
+                                  alt="Illustrator"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Premiere_Pro-9999FF?style=flat&logo=adobepremierepro&logoColor=white"
+                                  height="28"
+                                  alt="Premiere Pro"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Canva-00C4CC?style=flat&logo=canva&logoColor=white"
+                                  height="28"
+                                  alt="Canva"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/CapCut-000000?style=flat&logo=capcut&logoColor=white"
+                                  height="28"
+                                  alt="CapCut"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Grammarly-05CD99?style=flat&logo=grammarly&logoColor=white"
+                                  height="28"
+                                  alt="Grammarly"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/VS_Code-007ACC?style=flat&logo=visualstudiocode&logoColor=white"
+                                  height="28"
+                                  alt="VS Code"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/WordPress-21759B?style=flat&logo=wordpress&logoColor=white"
+                                  height="28"
+                                  alt="WordPress"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/HubSpot-FF7A59?style=flat&logo=hubspot&logoColor=white"
+                                  height="28"
+                                  alt="HubSpot"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Mailchimp-FFE01B?style=flat&logo=mailchimp&logoColor=black"
+                                  height="28"
+                                  alt="Mailchimp"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Klaviyo-005D47?style=flat&logo=klaviyo&logoColor=white"
+                                  height="28"
+                                  alt="Klaviyo"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Buffer-2C323D?style=flat&logo=buffer&logoColor=white"
+                                  height="28"
+                                  alt="Buffer"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Meta-0668E1?style=flat&logo=meta&logoColor=white"
+                                  height="28"
+                                  alt="Meta"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/ClickUp-7B68EE?style=flat&logo=clickup&logoColor=white"
+                                  height="28"
+                                  alt="ClickUp"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white"
+                                  height="28"
+                                  alt="Notion"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Loom-625DF5?style=flat&logo=loom&logoColor=white"
+                                  height="28"
+                                  alt="Loom"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Vyond-FF6B00?style=flat&logo=video&logoColor=white"
+                                  height="28"
+                                  alt="Vyond"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/ChatGPT-74aa9c?style=flat&logo=openai&logoColor=white"
+                                  height="28"
+                                  alt="ChatGPT"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Grammarly-05CD99?style=flat&logo=grammarly&logoColor=white"
+                                  height="28"
+                                  alt="Grammarly"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Trello-0079BF?style=flat&logo=trello&logoColor=white"
+                                  height="28"
+                                  alt="Trello"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/LastPass-D32D27?style=flat&logo=lastpass&logoColor=white"
+                                  height="28"
+                                  alt="LastPass"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/WPMU_DEV-00749C?style=flat&logo=wordpress&logoColor=white"
+                                  height="28"
+                                  alt="WPMU DEV"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Hootsuite-003265?style=flat&logo=hootsuite&logoColor=white"
+                                  height="28"
+                                  alt="Hootsuite"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Buffer-2C323D?style=flat&logo=buffer&logoColor=white"
+                                  height="28"
+                                  alt="Buffer"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white"
+                                  height="28"
+                                  alt="Figma"
+                                />
+                              </div>
+                              <div class="tech_badge">
+                                <img
+                                  src="https://img.shields.io/badge/Descript-00161E?style=flat&logo=descript&logoColor=white"
+                                  height="28"
+                                  alt="Descript"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Empty panels for future portfolio content -->
+                          <div
+                            id="work-graphics"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="graphics-1"
+                            aria-label="Graphics Projects"
+                          >
+                            <!-- Add your Graphics Projects content here -->
+                          </div>
+
+                          <div
+                            id="work-social-media-post"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="graphics-social-media-post"
+                            aria-label="Social Media Post"
+                          >
+                            <!-- Add your Social Media Post content here -->
+                          </div>
+
+                          <div
+                            id="work-thumbnails"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="graphics-thumbnails"
+                            aria-label="Thumbnails"
+                          >
+                            <!-- Add your Thumbnails content here -->
+                          </div>
+
+                          <div
+                            id="work-fb-ads"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="graphics-fb-ads"
+                            aria-label="FB Ads"
+                          >
+                            <!-- Add your FB Ads content here -->
+                          </div>
+
+                          <div
+                            id="work-website"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="graphics-website"
+                            aria-label="Website"
+                          >
+                            <!-- Add your Website content here -->
+                          </div>
+
+                          <div
+                            id="work-long-form"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="videos-long-form"
+                            aria-label="Long Form"
+                          >
+                            <!-- Add your Long Form content here -->
+                          </div>
+
+                          <div
+                            id="work-short-form"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="videos-short-form"
+                            aria-label="Short Form"
+                          >
+                            <!-- Add your Short Form content here -->
+                          </div>
+
+                          <div
+                            id="work-articles"
+                            class="body work-panel work-detail-panel hidden"
+                            data-work-panel="articles-1"
+                            aria-label="Articles"
+                          >
+                            <!-- Add your Articles content here -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div
+        id="contact-window"
+        class="winform hidden"
+        role="dialog"
+        aria-label="Contact Me"
+        aria-hidden="true"
+      >
+        <div class="titlebar">
+          <div style="display: flex; align-items: center; margin-left: 5px">
+            <strong>Contact Me</strong>
+          </div>
+          <div style="display: flex; gap: -2px">
+            <div class="win-btn minimise" aria-label="Minimise">
+              <img src="assets/minimise.png" alt="minimise" class="btn-icon" />
+            </div>
+            <div class="win-btn maximise" aria-label="Maximise">
+              <img src="assets/maximise.png" alt="maximise" class="btn-icon" />
+            </div>
+            <div class="win-btn close" aria-label="Close">
+              <img src="assets/close.png" alt="close" class="btn-icon" />
+            </div>
+          </div>
+        </div>
+
+        <div class="windowborder">
+          <div class="windowsbody">
+            <div class="topwindowsbar">
+              <div class="toolbar">
+                <p class="toolbaritem">File</p>
+                <p class="toolbaritem">Edit</p>
+                <p class="toolbaritem">View</p>
+                <p class="toolbaritem">Tools</p>
+                <p class="toolbaritem">Help</p>
+              </div>
+              <img
+                src="assets/winlogo.png"
+                alt="Windows Logo"
+                class="winlogo"
+              />
+            </div>
+
+
+            <div class="welcome-page">
+              <div class="accordion_content">
+                <div class="contact-compose" aria-label="Outlook-style contact form">
+                  <div class="contact-main">
+                    <div class="contact-icons-toolbar">
+                      <button
+                        class="contact-toolbar-button contact-toolbar-button-disabled"
+                        id="contact-send-btn"
+                        type="button"
+                        aria-disabled="true"
+                      >
+                        <img
+                          class="contact-send-icon"
+                          alt="send"
+                          width="40"
+                          height="30"
+                          src="assets/sendmail.png"
+                        />
+                        <p>Send</p>
+                      </button>
+
+                      <div class="contact-vertical-line"></div>
+
+                      <button class="contact-toolbar-button" type="button" id="contact-cut-btn">
+                        <img alt="cut" width="25" height="30" src="assets/cut.png" />
+                        <p>Cut</p>
+                      </button>
+
+                      <button class="contact-toolbar-button" type="button" id="contact-copy-btn">
+                        <img alt="copy" width="28" height="30" src="assets/copy.png" />
+                        <p>Copy</p>
+                      </button>
+
+                      <button class="contact-toolbar-button" type="button" id="contact-paste-btn">
+                        <img alt="paste" width="28" height="30" src="assets/paste.png" />
+                        <p>Paste</p>
+                      </button>
+
+                      <button class="contact-toolbar-button" type="button" id="contact-undo-btn">
+                        <img alt="undo" width="28" height="30" src="assets/undo.png" />
+                        <p>Undo</p>
+                      </button>
+
+                      <div class="contact-vertical-line"></div>
+
+                      <button
+                        class="contact-toolbar-button contact-message-dependent-disabled"
+                        type="button"
+                        id="contact-check-btn"
+                        aria-disabled="true"
+                      >
+                        <img alt="check" width="32" height="30" src="assets/check.png" />
+                        <p>Check</p>
+                      </button>
+
+                      <button
+                        class="contact-toolbar-button contact-message-dependent-disabled"
+                        type="button"
+                        id="contact-spelling-btn"
+                        aria-disabled="true"
+                      >
+                        <img alt="spelling" width="32" height="30" src="assets/spelling.png" />
+                        <p>Spelling</p>
+                      </button>
+                    </div>
+
+                    <form id="contact-compose-form" class="contact-compose-form">
+                      <div class="contact-mailing">
+                        <div class="contact-mailing-text">
+                          <div class="contact-field-text">
+                            <img alt="mailto" width="20" height="20" src="assets/mailto.png" />
+                            <p>To:</p>
+                          </div>
+                          <div class="contact-field-text">
+                            <img alt="mailto" width="20" height="20" src="assets/mailto.png" />
+                            <p>From:</p>
+                          </div>
+                          <div class="contact-field-text">
+                            <p>Subject:</p>
+                          </div>
+                        </div>
+
+                        <div class="contact-mailing-fields">
+                          <input
+                            class="contact-textfield"
+                            type="text"
+                            value="Edgar Rasselle B. Magsino (erbmagsino@gmail.com)"
+                            disabled
+                          />
+                          <input
+                            class="contact-textfield"
+                            id="contact-email-input"
+                            name="from_email"
+                            placeholder="Enter your email address"
+                            type="email"
+                            required
+                          />
+                          <input
+                            class="contact-textfield"
+                            id="contact-subject-input"
+                            name="subject"
+                            placeholder="What is this message/email regarding?"
+                            type="text"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div class="contact-richfield">
+                        <textarea
+                          draggable="false"
+                          id="contact-message-input"
+                          name="message"
+                          class="contact-richtextbox"
+                          placeholder="Type your message here...(Share with me something interesting or a feedback?)"
+                          required
+                        ></textarea>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <!-- ER window removed per request -->
+
+      <!--------------------- Custom Start Bar --------------------->
+      <div class="bluebar">
+        <div id="start-btn" class="startbtn"></div>
+
+        <div class="tabbar"></div>
+
+        <div class="icontray">
+          <div class="iconrow">
+            <img
+              src="assets/green_shield.png"
+              width="15"
+              height="15"
+              alt="Folder"
+            />
+            <img
+              src="assets/internet.png"
+              width="15"
+              height="15"
+              alt="Internet"
+            />
+            <img src="assets/sound.png" width="15" height="15" alt="Battery" />
+            <img
+              src="assets/removabledevice.png"
+              width="15"
+              height="15"
+              alt="Volume"
+            />
+          </div>
+          <div class="time-display">4:15 PM</div>
+        </div>
+      </div>
+
+      <!-- Start Menu (hidden by default) -->
+      <div id="start-menu" class="startmenu hidden" aria-hidden="true">
+        <hr class="whitehr" />
+        <div class="menutopbar">
+          <img
+            src="assets/user_profile.png"
+            width="55"
+            height="55"
+            alt="user"
+            style="
+              border: 2px solid rgba(222, 222, 222, 0.8);
+              border-radius: 3px;
+              margin: 0 5px;
+            "
+          />
+          <p
+            style="
+              font-size: 16px;
+              font-weight: 700;
+              color: white;
+              text-shadow: 1px 1px #000;
+            "
+          >
+            ER's PC
+          </p>
+        </div>
+        <hr class="orangehr" />
+        <div class="menu">
+          <div class="leftmenu">
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/internet.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <div style="display: flex; flex-direction: column">
+                <p class="TextONE">Internet</p>
+                <p class="subtitleONE">Internet Explorer</p>
+              </div>
+            </div>
+
+            <div class="Item">
+              <a
+                href="#"
+                id="start-open-contact"
+                data-open-contact-window="true"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  text-decoration: none;
+                  color: inherit;
+                "
+              >
+                <img
+                  src="assets/outlook.png"
+                  alt=""
+                  width="32"
+                  height="32"
+                  class="leftIcon"
+                />
+                <div style="display: flex; flex-direction: column">
+                  <p class="TextONE">Email</p>
+                  <p class="subtitleONE">Drop Me a Message!</p>
+                </div>
+              </a>
+            </div>
+            <hr class="bluehr" />
+            <div class="Item" onclick="yourFunction()">
+              <a
+                href="public/Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  text-decoration: none;
+                "
+              >
+                <img
+                  src="assets/pdf.png"
+                  alt=""
+                  width="32"
+                  height="32"
+                  class="leftIcon"
+                />
+                <p class="TextTWO">Resume</p>
+              </a>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <a
+                href="https://www.linkedin.com/in/edgar-rasselle-bunquin-magsino-8a40743aa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  text-decoration: none;
+                "
+              >
+                <img
+                  src="assets/linkedin.png"
+                  alt=""
+                  width="32"
+                  height="32"
+                  class="leftIcon"
+                />
+                <p class="TextTHREE">LinkedIn</p>
+              </a>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <a
+                href="https://github.com/erbmagsino-cmyk"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  text-decoration: none;
+                "
+              >
+                <img
+                  src="assets/github.png"
+                  alt=""
+                  width="32"
+                  height="32"
+                  class="leftIcon"
+                />
+                <p class="TextFOUR">Github</p>
+              </a>
+            </div>
+          </div>
+          <div class="rightmenu">
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/folder_plain.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">My Documents</p>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/recentdoc.png"
+                alt=""
+                width="32"
+                height="32"
+                class="rightIcon"
+              />
+              <p class="TextTHREE">Recent Documents</p>
+              <div class="menu_arrow"></div>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/folder_image.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">My Pictures</p>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/folder_music.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">My Music</p>
+            </div>
+
+            <div
+              class="Item"
+              id="start-my-computer"
+              onclick="document.getElementById('my-computer').click(); yourFunction();"
+            >
+              <img
+                src="assets/mycomputer.png"
+                alt=""
+                width="32"
+                height="32"
+                class="rightIcon"
+              />
+              <p class="TextFOUR">My Computer</p>
+            </div>
+            <hr class="bluehr" />
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/clipboard.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">Control Panel</p>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/defaultprog.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">Set Program Access &amp; Defaults</p>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/printerfax.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">Printers and Faxes</p>
+            </div>
+
+            <hr class="bluehr" />
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/help.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">Help &amp; Support</p>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/search.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">Search</p>
+            </div>
+
+            <div class="Item" onclick="yourFunction()">
+              <img
+                src="assets/run.png"
+                alt=""
+                width="32"
+                height="32"
+                class="leftIcon"
+              />
+              <p class="TextTWO">Run</p>
+            </div>
+          </div>
+        </div>
+        <div class="menubtmbar">
+          <div class="systemBtn">
+            <img
+              src="assets/logoff.png"
+              width="30"
+              height="30"
+              class="systemBtnIcon"
+            />
+            Log Off
+          </div>
+          <div class="systemBtn">
+            <img
+              src="assets/shutdown.png"
+              width="30"
+              height="30"
+              class="systemBtnIcon"
+            />
+            Turn Off Computer
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------------------------------------>
+    </div>
+
+    <script src="src/app.js"></script>
+  </body>
+</html>
