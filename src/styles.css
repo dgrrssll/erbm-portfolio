@@ -2173,6 +2173,83 @@ input[type="range"]::-webkit-slider-thumb{appearance:none;height:14px;width:14px
   }
 }
 
+
+/* ============================================================
+   ABOUT SERVICES OFFERED SECTION
+   ============================================================ */
+
+.winform #view-about .about-services {
+  width: 100% !important;
+  max-width: 900px !important;
+  margin: 45px auto 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-about .about-services h2 {
+  margin: 0 0 14px 0 !important;
+  text-align: center !important;
+  font-size: 28px !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.winform #view-about .about-services-description {
+  max-width: 780px !important;
+  margin: 0 auto 26px auto !important;
+  text-align: center !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+.winform #view-about .about-services-columns {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 32px !important;
+  width: 100% !important;
+}
+
+.winform #view-about .about-services-columns ul {
+  margin: 0 !important;
+  padding-left: 22px !important;
+}
+
+.winform #view-about .about-services-columns li {
+  margin-bottom: 18px !important;
+  padding-left: 4px !important;
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+}
+
+.winform #view-about .about-services-columns li::marker {
+  color: #173b8f !important;
+}
+
+.winform #view-about .about-services-columns strong {
+  display: block !important;
+  margin-bottom: 4px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+.winform #view-about .about-services-columns span {
+  display: block !important;
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .winform #view-about .about-services {
+    max-width: 100% !important;
+    padding: 0 10px !important;
+  }
+
+  .winform #view-about .about-services-columns {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+}
+
 /* ============================================================
    ABOUT STATS FINAL CLEAN VERSION
    3 items above, 2 centered below, no icon circle
@@ -2943,4 +3020,1340 @@ input[type="range"]::-webkit-slider-thumb{appearance:none;height:14px;width:14px
 .winform #view-work #work-welcome .work-headings,
 .winform #view-work #work-welcome .content_tech {
   max-width: 800px !important;
+}
+
+
+/* ============================================================
+   FINAL COMPACT ACCORDION PATCH
+   Purpose:
+   - Removes the large vertical gap inside the Work accordion.
+   - Resets default <p> margins.
+   - Tightens title, folder rows, icon spacing, and group spacing.
+   Keep this block at the VERY END of the CSS file.
+   ============================================================ */
+
+.winform #view-work .accordion {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  margin: 0 !important;
+  padding: 0 0 4px 0 !important;
+  background: #ffffff33 !important;
+  border-radius: 5px !important;
+}
+
+.winform #view-work .accordion-group {
+  flex: 0 0 auto !important;
+  margin: 0 0 4px 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.winform #view-work .accordion-group .win_accordion_title {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 20px !important;
+  margin: 0 !important;
+  padding: 3px 8px !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  font-weight: 700 !important;
+  color: #2d3748 !important;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  ) !important;
+  border-radius: 5px 5px 0 0 !important;
+}
+
+.winform #view-work .accordion-group .win_accordion_title .accordion-btn {
+  width: 13px !important;
+  height: 13px !important;
+  display: block !important;
+  flex: 0 0 13px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_item {
+  min-height: 19px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  line-height: 1 !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_item:hover {
+  text-decoration: underline !important;
+  color: #0000ff !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_text {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  min-height: 19px !important;
+  margin: 0 !important;
+  padding: 1px 8px !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  color: #000 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_text img {
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 15px !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_text p {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 14px !important;
+  font-size: 12px !important;
+}
+
+/* Optional: slightly smaller gaps between the main category blocks */
+.winform #view-work .accordion-group + .accordion-group {
+  margin-top: 2px !important;
+}
+
+/* ============================================================
+   EXTRA VERTICAL BREATHING ROOM PATCH
+   Purpose:
+   - Adds a bit more top and bottom space so the left accordion
+     items do not look cramped.
+   - Keep this AFTER the compact patch so it wins.
+   ============================================================ */
+
+.winform #view-work .accordion {
+  padding: 6px 0 8px 0 !important;
+  gap: 6px !important;
+}
+
+.winform #view-work .accordion-group {
+  margin: 0 0 6px 0 !important;
+}
+
+.winform #view-work .accordion-group .win_accordion_title {
+  min-height: 24px !important;
+  padding: 5px 8px !important;
+  line-height: 16px !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_item {
+  min-height: 22px !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_text {
+  min-height: 22px !important;
+  padding: 3px 8px !important;
+  line-height: 16px !important;
+}
+
+.winform #view-work .accordion-group .accordion_content_text p {
+  line-height: 16px !important;
+}
+
+.winform #view-work .accordion-group + .accordion-group {
+  margin-top: 4px !important;
+}
+
+/* ============================================================
+   FINAL ACCORDION INNER SPACING PATCH
+   Adds space INSIDE each accordion group:
+   - between the title and the first folder item
+   - between the last folder item and the bottom edge
+   Keep this block at the VERY END of the CSS file.
+   ============================================================ */
+
+.winform #view-work .accordion {
+  padding: 0 !important;
+  gap: 10px !important;
+}
+
+/* The rounded blue/white accordion box */
+.winform #view-work .accordion-group {
+  overflow: hidden !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 0 7px 0 !important; /* bottom inside space */
+  border-radius: 5px !important;
+  background: #d6e2ff !important;
+}
+
+/* Category title: Graphics, Videos, Articles */
+.winform #view-work .accordion-group .win_accordion_title {
+  margin: 0 0 5px 0 !important; /* space below title */
+  padding: 5px 8px 4px 8px !important;
+  min-height: 24px !important;
+  line-height: 16px !important;
+}
+
+/* Folder rows */
+.winform #view-work .accordion-group .accordion_content_item {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 21px !important;
+}
+
+/* Text/icon row inside each folder item */
+.winform #view-work .accordion-group .accordion_content_text {
+  padding: 2px 8px !important;
+  min-height: 21px !important;
+  line-height: 16px !important;
+}
+
+/* Remove default paragraph margin so spacing is controlled only by the group */
+.winform #view-work .accordion-group .accordion_content_text p {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 16px !important;
+}
+
+/* ============================================================
+   FINAL WORK WELCOME VERTICAL CENTERING PATCH
+   Purpose:
+   - Makes the top and bottom gap around the "Welcome To My Portfolio Section"
+     content even.
+   - Centers the heading + tech badges vertically inside the right panel.
+   Keep this block at the VERY END of the CSS file.
+   ============================================================ */
+
+.winform #view-work .rightpanel {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work #work-welcome:not(.hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 40px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+.winform #view-work #work-welcome .work-headings {
+  margin: 0 0 24px 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+.winform #view-work #work-welcome .work-headings h2,
+.winform #view-work #work-welcome .work-headings h5,
+.winform #view-work #work-welcome .work-headings h6 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.winform #view-work #work-welcome .content_tech {
+  margin: 0 auto !important;
+  padding: 0 !important;
+  max-width: 820px !important;
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+/* ============================================================
+   WORK DETAIL GALLERY PANELS
+   Scoped replacement for the gallery code inside each Work panel.
+   ============================================================ */
+.winform #view-work .work-detail-panel {
+  position: relative !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+}
+
+.winform #view-work .work-gallery {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  background: #eef2fb !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+}
+
+.winform #view-work .display_container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 66% !important;
+  min-height: 260px !important;
+  width: 100% !important;
+  background-color: #eef2fb !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .work-gallery-active-image {
+  width: 95% !important;
+  height: 90% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.winform #view-work .control_container {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  height: 40px !important;
+  width: 100% !important;
+  flex: 0 0 40px !important;
+}
+
+.winform #view-work .control_icon {
+  background: none !important;
+  border: 2px solid transparent !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  filter: brightness(1.05) !important;
+}
+
+.winform #view-work .control_icon:hover {
+  background: #f8f8f0 !important;
+  border-radius: 5px !important;
+  border: 2px solid #cecec3 !important;
+  filter: brightness(1.02) !important;
+}
+
+.winform #view-work .control_icon:active {
+  background: #e0e4e0 !important;
+  border: 2px solid #989c90 !important;
+  filter: brightness(0.98) !important;
+}
+
+.winform #view-work .slider_container {
+  position: relative !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  width: 100% !important;
+  height: 34% !important;
+  min-height: 120px !important;
+  background: #eef2fb !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .slider {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 4px !important;
+  height: 100% !important;
+  width: 100% !important;
+  padding: 10px !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .gallery-slider-icon {
+  background: none !important;
+  border: 2px solid transparent !important;
+  cursor: pointer !important;
+  padding: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 4px !important;
+  color: #000 !important;
+  font-size: 12px !important;
+  min-width: 85px !important;
+  font-family: var(--ui-font) !important;
+}
+
+.winform #view-work .gallery-slider-icon:hover,
+.winform #view-work .gallery-slider-icon.active {
+  background: #f8f8f0 !important;
+  border-radius: 5px !important;
+  border-color: #cecec3 !important;
+}
+
+.winform #view-work .gallery-slider-icon img {
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.winform #view-work .gallery-slider-icon span {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+.winform #view-work .work-gallery-shadow {
+  position: absolute !important;
+  bottom: -15px !important;
+  right: 4px !important;
+  pointer-events: none !important;
+  opacity: 0.95 !important;
+}
+
+@media (max-width: 700px) {
+  .winform #view-work .display_container {
+    min-height: 220px !important;
+  }
+
+  .winform #view-work .gallery-slider-icon {
+    min-width: 76px !important;
+    padding: 8px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* ============================================================
+   FINAL PATCH - Gallery fills the Work right panel edge-to-edge
+   Removes the gray gutter/spacing around the gallery detail panel.
+   Keep this at the VERY END of styles.css.
+   ============================================================ */
+
+.winform #view-work .rightpanel {
+  padding: 0 !important;
+  margin: 0 !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+}
+
+.winform #view-work .work-detail-panel,
+.winform #view-work .work-detail-panel.body,
+.winform #view-work .rightpanel > .work-detail-panel {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .work-detail-panel:not(.hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.winform #view-work .work-gallery {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .display_container {
+  flex: 1 1 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .slider_container {
+  flex: 0 0 34% !important;
+  height: 34% !important;
+  min-height: 120px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .slider {
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* ============================================================
+   FINAL PATCH - Work gallery fullscreen fit + color split
+   Purpose:
+   - Gallery fills the right panel in normal and fullscreen modes.
+   - Top display/image area and slider controls use #eef2fb.
+   - Thumbnail strip/background uses white.
+   Keep this block at the VERY END of styles.css.
+   ============================================================ */
+
+.winform #view-work .rightpanel,
+.winform.fullscreen #view-work .rightpanel {
+  padding: 0 !important;
+  margin: 0 !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+}
+
+.winform #view-work .work-detail-panel,
+.winform #view-work .work-detail-panel.body,
+.winform #view-work .rightpanel > .work-detail-panel,
+.winform.fullscreen #view-work .work-detail-panel,
+.winform.fullscreen #view-work .work-detail-panel.body,
+.winform.fullscreen #view-work .rightpanel > .work-detail-panel {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .work-detail-panel:not(.hidden),
+.winform.fullscreen #view-work .work-detail-panel:not(.hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.winform #view-work .work-gallery,
+.winform.fullscreen #view-work .work-gallery {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Top picture display area */
+.winform #view-work .display_container,
+.winform.fullscreen #view-work .display_container {
+  flex: 1 1 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  background-color: #eef2fb !important;
+  box-sizing: border-box !important;
+}
+
+/* Slider/arrow controls stay with the top image color */
+.winform #view-work .control_container,
+.winform.fullscreen #view-work .control_container {
+  flex: 0 0 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  background-color: #eef2fb !important;
+  box-sizing: border-box !important;
+}
+
+/* Bottom thumbnail area */
+.winform #view-work .slider_container,
+.winform.fullscreen #view-work .slider_container {
+  flex: 0 0 34% !important;
+  height: 34% !important;
+  min-height: 120px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .slider,
+.winform.fullscreen #view-work .slider {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 10px !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .gallery-slider-icon,
+.winform.fullscreen #view-work .gallery-slider-icon {
+  background: transparent !important;
+}
+
+.winform #view-work .gallery-slider-icon:hover,
+.winform #view-work .gallery-slider-icon.active,
+.winform.fullscreen #view-work .gallery-slider-icon:hover,
+.winform.fullscreen #view-work .gallery-slider-icon.active {
+  background: #f8f8f0 !important;
+}
+
+/* ============================================================
+   FINAL PATCH - XP Picture Gallery visual match
+   Replicates the reference style:
+   - top preview and controls use #eef2fb
+   - bottom thumbnail strip uses white
+   - no outer gap in normal or fullscreen view
+   - thumbnail selection uses classic XP blue label highlight
+   ============================================================ */
+
+.winform #view-work .rightpanel,
+.winform.fullscreen #view-work .rightpanel {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+
+.winform #view-work .work-detail-panel,
+.winform #view-work .work-detail-panel.body,
+.winform.fullscreen #view-work .work-detail-panel,
+.winform.fullscreen #view-work .work-detail-panel.body {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  background: #eef2fb !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .work-detail-panel:not(.hidden),
+.winform.fullscreen #view-work .work-detail-panel:not(.hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.winform #view-work .work-gallery,
+.winform.fullscreen #view-work .work-gallery {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  font-family: var(--ui-font) !important;
+}
+
+/* Top preview section */
+.winform #view-work .display_container,
+.winform.fullscreen #view-work .display_container {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .work-gallery-active-image,
+.winform.fullscreen #view-work .work-gallery-active-image {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 72% !important;
+  max-height: calc(100% - 50px) !important;
+  object-fit: contain !important;
+  margin: 0 auto !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Control strip under preview image */
+.winform #view-work .control_container,
+.winform.fullscreen #view-work .control_container {
+  flex: 0 0 40px !important;
+  width: 100% !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #eef2fb !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .control_icon,
+.winform.fullscreen #view-work .control_icon {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  padding: 0 !important;
+  border: 1px solid transparent !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .control_icon img,
+.winform.fullscreen #view-work .control_icon img {
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.winform #view-work .control_icon:hover,
+.winform.fullscreen #view-work .control_icon:hover {
+  background: #f8f8f0 !important;
+  border-color: #cecec3 !important;
+}
+
+.winform #view-work .control_icon:active,
+.winform.fullscreen #view-work .control_icon:active {
+  background: #e0e4e0 !important;
+  border-color: #989c90 !important;
+}
+
+/* Bottom thumbnail strip */
+.winform #view-work .slider_container,
+.winform.fullscreen #view-work .slider_container {
+  position: relative !important;
+  flex: 0 0 31% !important;
+  height: 31% !important;
+  min-height: 150px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .slider,
+.winform.fullscreen #view-work .slider {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 28px !important;
+  width: max-content !important;
+  min-width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 18px 20px 12px 20px !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .gallery-slider-icon,
+.winform.fullscreen #view-work .gallery-slider-icon {
+  width: 116px !important;
+  min-width: 116px !important;
+  max-width: 116px !important;
+  min-height: 124px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 4px !important;
+  cursor: pointer !important;
+  font-family: var(--ui-font) !important;
+  font-size: 14px !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .gallery-slider-icon:hover,
+.winform.fullscreen #view-work .gallery-slider-icon:hover {
+  background: transparent !important;
+  border-color: #d8d2bd !important;
+}
+
+.winform #view-work .gallery-slider-icon.active,
+.winform.fullscreen #view-work .gallery-slider-icon.active {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.winform #view-work .gallery-slider-icon img,
+.winform.fullscreen #view-work .gallery-slider-icon img {
+  width: 96px !important;
+  height: 96px !important;
+  object-fit: cover !important;
+  display: block !important;
+  margin: 0 auto 3px auto !important;
+  padding: 3px !important;
+  background: #ffffff !important;
+  border: 2px solid #ede7d8 !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .gallery-slider-icon:hover img,
+.winform.fullscreen #view-work .gallery-slider-icon:hover img {
+  border-color: #cfc7a6 !important;
+}
+
+.winform #view-work .gallery-slider-icon.active img,
+.winform.fullscreen #view-work .gallery-slider-icon.active img {
+  border-color: #2b78d6 !important;
+}
+
+.winform #view-work .gallery-slider-icon span,
+.winform.fullscreen #view-work .gallery-slider-icon span {
+  display: block !important;
+  max-width: 104px !important;
+  margin: 0 auto !important;
+  padding: 1px 3px !important;
+  color: #000 !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  line-height: 1.15 !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .gallery-slider-icon.active span,
+.winform.fullscreen #view-work .gallery-slider-icon.active span {
+  color: #ffffff !important;
+  background: #2b78d6 !important;
+}
+
+.winform #view-work .work-gallery-shadow,
+.winform.fullscreen #view-work .work-gallery-shadow {
+  position: absolute !important;
+  right: 8px !important;
+  bottom: -14px !important;
+  width: 120px !important;
+  height: 120px !important;
+  opacity: 0.22 !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 900px) {
+  .winform #view-work .work-gallery-active-image,
+  .winform.fullscreen #view-work .work-gallery-active-image {
+    max-width: 86% !important;
+  }
+
+  .winform #view-work .slider,
+  .winform.fullscreen #view-work .slider {
+    gap: 18px !important;
+  }
+}
+
+
+/* ============================================================
+   FINAL PATCH - remove click/float animation from gallery thumbnails
+   ============================================================ */
+.winform #view-work .gallery-slider-icon,
+.winform.fullscreen #view-work .gallery-slider-icon,
+.winform #view-work .gallery-slider-icon:active,
+.winform.fullscreen #view-work .gallery-slider-icon:active,
+.winform #view-work .gallery-slider-icon.press-feedback:active,
+.winform.fullscreen #view-work .gallery-slider-icon.press-feedback:active,
+.winform #view-work .gallery-slider-icon.xp-click,
+.winform.fullscreen #view-work .gallery-slider-icon.xp-click {
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* ============================================================
+   FINAL PATCH - Even gallery preview spacing
+   Makes the top padding above the preview image and the bottom
+   space below the slider buttons visually balanced.
+   Keep this block at the VERY END of styles.css.
+   ============================================================ */
+
+.winform #view-work .display_container,
+.winform.fullscreen #view-work .display_container {
+  justify-content: flex-start !important;
+  padding: 14px 0 14px 0 !important;
+  gap: 10px !important;
+}
+
+.winform #view-work .work-gallery-active-image,
+.winform.fullscreen #view-work .work-gallery-active-image {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 50px) !important;
+  margin: 0 auto !important;
+}
+
+.winform #view-work .control_container,
+.winform.fullscreen #view-work .control_container {
+  flex: 0 0 26px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.winform #view-work .control_icon,
+.winform.fullscreen #view-work .control_icon,
+.winform #view-work .control_icon img,
+.winform.fullscreen #view-work .control_icon img {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+}
+
+
+/* ============================================================
+   COPYWRITING PROJECT DOCUMENT GRID
+   Applies Windows Explorer-style document icons to Articles,
+   Emails, and Social Media Captions right panels.
+   ============================================================ */
+.winform #view-work .work-doc-grid {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)) !important;
+  gap: 24px 18px !important;
+  align-items: start !important;
+  justify-items: center !important;
+  padding: 8px 4px !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .work-doc-item {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 88px !important;
+  min-height: 92px !important;
+  padding: 4px 3px !important;
+  margin: 0 !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #000 !important;
+  font-family: var(--ui-font) !important;
+  font-size: 12px !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  border-radius: 2px !important;
+}
+
+.winform #view-work .work-doc-item img {
+  width: 56px !important;
+  height: 56px !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+  pointer-events: none !important;
+}
+
+.winform #view-work .work-doc-item span {
+  display: block !important;
+  width: 100% !important;
+  color: #000 !important;
+  text-align: center !important;
+  word-break: break-word !important;
+  pointer-events: none !important;
+}
+
+.winform #view-work .work-doc-item:hover,
+.winform #view-work .work-doc-item:focus {
+  background: rgba(49, 106, 197, 0.16) !important;
+  border-color: rgba(49, 106, 197, 0.45) !important;
+  outline: none !important;
+}
+
+.winform #view-work .work-doc-item:active,
+.winform #view-work .work-doc-item.selected {
+  background: rgba(49, 106, 197, 0.28) !important;
+  border-color: rgba(49, 106, 197, 0.75) !important;
+}
+
+/* ============================================================
+   VIDEO PROJECT ICON GRID + HOVER DETAIL DIALOGUES
+   Adds Explorer-style video icons and hover metadata for
+   thumbnail, document, and video portfolio items.
+   ============================================================ */
+
+.winform #view-work .work-video-grid {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)) !important;
+  gap: 24px 18px !important;
+  align-items: start !important;
+  justify-items: center !important;
+  padding: 8px 4px !important;
+  box-sizing: border-box !important;
+}
+
+.winform #view-work .work-video-item {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 96px !important;
+  min-height: 96px !important;
+  padding: 4px 3px !important;
+  margin: 0 !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #000 !important;
+  font-family: var(--ui-font) !important;
+  font-size: 12px !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  border-radius: 2px !important;
+  position: relative !important;
+}
+
+.winform #view-work .work-video-item img {
+  width: 56px !important;
+  height: 56px !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+  pointer-events: none !important;
+}
+
+.winform #view-work .work-video-item span {
+  display: block !important;
+  width: 100% !important;
+  color: #000 !important;
+  text-align: center !important;
+  word-break: break-word !important;
+  pointer-events: none !important;
+}
+
+.winform #view-work .work-video-item:hover,
+.winform #view-work .work-video-item:focus {
+  background: rgba(49, 106, 197, 0.16) !important;
+  border-color: rgba(49, 106, 197, 0.45) !important;
+  outline: none !important;
+}
+
+.winform #view-work .work-video-item:active,
+.winform #view-work .work-video-item.selected {
+  background: rgba(49, 106, 197, 0.28) !important;
+  border-color: rgba(49, 106, 197, 0.75) !important;
+}
+
+/* Keep tooltip positioning available for all portfolio icon buttons. */
+.winform #view-work .gallery-slider-icon,
+.winform #view-work .work-doc-item,
+.winform #view-work .work-video-item {
+  position: relative !important;
+}
+
+/* Small hover dialogue box for thumbnails, documents, and videos. */
+.winform #view-work .gallery-slider-icon[data-tooltip-date]:hover::after,
+.winform #view-work .work-doc-item[data-tooltip-date]:hover::after,
+.winform #view-work .work-video-item[data-tooltip-date]:hover::after {
+  content: "Date: " attr(data-tooltip-date) "\A" attr(data-tooltip-description);
+  position: absolute !important;
+  left: calc(100% + 10px) !important;
+  top: 8px !important;
+  width: 220px !important;
+  min-height: 48px !important;
+  padding: 8px 10px !important;
+  background: #ffffe1 !important;
+  border: 1px solid #7a7a7a !important;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.25) !important;
+  color: #000 !important;
+  font-family: var(--ui-font) !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  text-align: left !important;
+  white-space: pre-line !important;
+  z-index: 99999 !important;
+  pointer-events: none !important;
+}
+
+.winform #view-work .gallery-slider-icon[data-tooltip-date]:hover::before,
+.winform #view-work .work-doc-item[data-tooltip-date]:hover::before,
+.winform #view-work .work-video-item[data-tooltip-date]:hover::before {
+  content: "";
+  position: absolute !important;
+  left: calc(100% + 4px) !important;
+  top: 18px !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-top: 6px solid transparent !important;
+  border-bottom: 6px solid transparent !important;
+  border-right: 6px solid #7a7a7a !important;
+  z-index: 99998 !important;
+  pointer-events: none !important;
+}
+
+/* Prevent tooltip clipping inside gallery slider strips. */
+.winform #view-work .slider_container,
+.winform #view-work .slider {
+  overflow: visible !important;
+}
+
+.winform #view-work .work-gallery {
+  overflow: visible !important;
+}
+
+/* ============================================================
+   TETRIS GAME WINDOW
+   ============================================================ */
+
+#tetris-window {
+  width: 760px;
+  height: min(680px, 84vh);
+  top: 7%;
+  left: 20%;
+  z-index: 3600;
+}
+
+#tetris-window .accordion_content {
+  padding: 0 !important;
+  background: #111827 !important;
+  overflow: hidden !important;
+}
+
+#tetris-window .tetris-app {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 190px minmax(240px, 1fr) 160px;
+  gap: 14px;
+  padding: 16px;
+  box-sizing: border-box;
+  background: radial-gradient(circle at top, #223057 0%, #111827 55%, #050816 100%);
+  color: #ffffff;
+  font-family: var(--ui-font);
+}
+
+#tetris-window .tetris-sidebar,
+#tetris-window .tetris-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+#tetris-window .tetris-panel {
+  background: #ede9d3;
+  color: #000;
+  border: 2px solid #0831d9;
+  box-shadow: inset 1px 1px #ffffff, inset -1px -1px #808080;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#tetris-window .tetris-panel h3 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  color: #00136b;
+}
+
+#tetris-window .tetris-score-value {
+  padding: 8px;
+  background: #000;
+  color: #33ff66;
+  font-family: 'VT323', monospace;
+  font-size: 36px;
+  line-height: 1;
+  text-align: right;
+  border: 2px inset #808080;
+}
+
+#tetris-window .tetris-rank-list {
+  margin: 0;
+  padding-left: 24px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+#tetris-window .tetris-help-panel p {
+  margin: 6px 0;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+#tetris-window .tetris-board-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
+#tetris-window .tetris-canvas {
+  width: min(100%, 300px);
+  height: auto;
+  aspect-ratio: 1 / 2;
+  background: #050816;
+  border: 4px solid #ede9d3;
+  box-shadow: 0 0 0 2px #0831d9, 0 18px 38px rgba(0,0,0,0.55);
+  image-rendering: pixelated;
+}
+
+#tetris-window .tetris-controls {
+  justify-content: center;
+}
+
+#tetris-window .tetris-controls button,
+#tetris-window .tetris-game-over-box button {
+  min-height: 34px;
+  padding: 6px 10px;
+  background: #ede9d3;
+  border: 2px outset #ffffff;
+  color: #000;
+  font-family: var(--ui-font);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#tetris-window .tetris-controls button:hover,
+#tetris-window .tetris-game-over-box button:hover {
+  filter: brightness(1.06);
+}
+
+#tetris-window .tetris-controls button:active,
+#tetris-window .tetris-game-over-box button:active {
+  border-style: inset;
+}
+
+#tetris-window .tetris-game-over {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.68);
+  z-index: 10;
+}
+
+#tetris-window .tetris-game-over.hidden {
+  display: none !important;
+}
+
+#tetris-window .tetris-game-over-box {
+  width: 230px;
+  background: #ede9d3;
+  color: #000;
+  border: 3px solid #0831d9;
+  box-shadow: inset 1px 1px #ffffff, inset -1px -1px #808080, 0 16px 40px rgba(0,0,0,0.55);
+  padding: 18px;
+  text-align: center;
+}
+
+#tetris-window .tetris-game-over-box h2 {
+  margin: 0 0 10px 0;
+  color: #b00000;
+  font-size: 20px;
+}
+
+#tetris-window .tetris-game-over-box p {
+  margin: 0 0 14px 0;
+  font-size: 13px;
+}
+
+#tetris-window .tetris-game-over-box button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.winform.fullscreen#tetris-window {
+  width: 100vw !important;
+  height: calc(100vh - var(--startbar-height)) !important;
+}
+
+@media (max-width: 760px) {
+  #tetris-window {
+    left: 2% !important;
+    width: 96% !important;
+  }
+
+  #tetris-window .tetris-app {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  #tetris-window .tetris-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
