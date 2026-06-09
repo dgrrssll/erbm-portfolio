@@ -215,5 +215,5 @@ This project focuses on combining athletic branding, thoughtful product curation
 
 <img width="1366" height="5376" alt="Home page" src="https://github.com/user-attachments/assets/aa9a6c1f-8200-4b04-8bdf-08678a04dad0" />
 <img width="1366" height="5376" alt="About Us" src="https://github.com/user-attachments/assets/6b2a3eab-ce89-4860-9c16-e0516e33ca0e" />
-<img width="1366" height="6144" alt="Box Menu" src="https://github.com/user-attachments/assets/22050176-e2e2-4ab7-b490-b41afe24d02f" />
+<img width="1366" height="5376" alt="Box Menu" src="https://github.com/user-attachments/assets/22050176-e2e2-4ab7-b490-b41afe24d02f" />
 
