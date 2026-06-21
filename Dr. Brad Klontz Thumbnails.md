@@ -30,4 +30,9 @@ Designed YouTube thumbnails for Dr. Brad Klontz’s video content. The thumbnail
 <img width="1280" height="720" alt="53" src="https://github.com/user-attachments/assets/966049a8-733a-498a-a66f-d9749909dace" />
 <img width="1280" height="720" alt="52" src="https://github.com/user-attachments/assets/a1e3d7da-a1ed-4d52-afe3-e23195b6cf09" />
 <img width="1280" height="720" alt="51" src="https://github.com/user-attachments/assets/adfcbfda-fb00-40bb-a0f5-f7ad7c2205c9" />
+<img width="1280" height="720" alt="Why Do So Many People Struggle With Money in 2025" src="https://github.com/user-attachments/assets/c5b4713f-8c7d-43af-a6f6-7e259de49996" />
+<img width="1280" height="720" alt="7 Money Mistakes Keeping You Broke in 2025" src="https://github.com/user-attachments/assets/b3344e3f-dc24-4a66-bbdf-ffadd1b22a27" />
+<img width="1280" height="720" alt="Millionaire Live Like This (2)" src="https://github.com/user-attachments/assets/2df93c86-af0b-4c99-8fbd-1e80cf5f059a" />
+<img width="1280" height="720" alt="Top 5 Manifesting Mistakes_ What You&#39;re Doing Wrong!" src="https://github.com/user-attachments/assets/6736237f-1abb-4ce2-8155-760137604742" />
+
 
