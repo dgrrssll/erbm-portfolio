@@ -14,7 +14,7 @@ Created product images for Graphic Jawâ€™s Shopify store to present the clientâ€
 * Strengthened the overall presentation of the online store
 * Prepared Shopify-ready graphics for product listings
 
-d<img width="2000" height="2000" alt="8" src="https://github.com/user-attachments/assets/8227ddef-1fde-45c7-8c0d-aeec15bcf82a" />
+<img width="2000" height="2000" alt="8" src="https://github.com/user-attachments/assets/8227ddef-1fde-45c7-8c0d-aeec15bcf82a" />
 <img width="2000" height="2000" alt="7" src="https://github.com/user-attachments/assets/1a498c95-c7bf-4f94-9d3f-7e17f6c5bcc9" />
 <img width="2000" height="2000" alt="6" src="https://github.com/user-attachments/assets/2e29a433-ab15-4d73-ba13-5320d826e39a" />
 <img width="2000" height="2000" alt="5" src="https://github.com/user-attachments/assets/926a2ade-3129-4518-beaf-6e5cd8da2e9c" />
