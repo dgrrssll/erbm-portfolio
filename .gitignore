@@ -8,4 +8,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /.idea/
-coverage/
+coverage/public/videos/others_video_2.mp4
+public/videos/others_video_3.mp4

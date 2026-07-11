@@ -558,6 +558,7 @@ setTimeout(()=>{ finishBootSequence(); }, 3000 + 2500);
     if(projectId === 'graphics-others') return 'Others';
     if(projectId === 'videos-long-form') return 'Long Form';
     if(projectId === 'videos-short-form') return 'Short Form';
+    if(projectId === 'videos-others') return 'Others';
     if(projectId === 'articles-1') return 'Articles';
     if(projectId === 'copywriting-emails') return 'Emails';
     if(projectId === 'copywriting-social-media-captions') return 'Social Media Captions';
@@ -1335,8 +1336,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ============================================================
    WORK DETAIL GALLERY PANEL BEHAVIOR
-   Enables thumbnail selection plus previous/next controls for
-   every gallery placed inside a Work detail panel.
+   Enables thumbnail selection, previous/next controls,
+   and optional redirect links for selected gallery items.
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   const galleries = Array.from(document.querySelectorAll('#view-work .work-gallery'));
@@ -1352,15 +1353,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!activeImage || thumbnails.length === 0) return;
 
-    let currentIndex = Math.max(0, thumbnails.findIndex((button) => button.classList.contains('active')));
+    let currentIndex = Math.max(
+      0,
+      thumbnails.findIndex((button) => button.classList.contains('active'))
+    );
 
     function showImage(index) {
       currentIndex = (index + thumbnails.length) % thumbnails.length;
       const selected = thumbnails[currentIndex];
       const selectedImage = selected.querySelector('img');
 
-      activeImage.src = selected.dataset.gallerySrc || (selectedImage ? selectedImage.src : activeImage.src);
-      activeImage.alt = selected.dataset.galleryAlt || (selectedImage ? selectedImage.alt : activeImage.alt);
+      activeImage.src =
+        selected.dataset.gallerySrc ||
+        (selectedImage ? selectedImage.src : activeImage.src);
+
+      activeImage.alt =
+        selected.dataset.galleryAlt ||
+        (selectedImage ? selectedImage.alt : activeImage.alt);
+
+      activeImage.dataset.galleryLink = selected.dataset.galleryLink || '';
+      activeImage.dataset.galleryFilename = selected.dataset.galleryFilename || '';
+
+      if (selected.dataset.galleryLink && selected.dataset.galleryLink.trim() !== '') {
+        activeImage.style.cursor = 'pointer';
+        activeImage.title = 'Open project link';
+      } else {
+        activeImage.style.cursor = 'default';
+        activeImage.removeAttribute('title');
+      }
 
       thumbnails.forEach((button, buttonIndex) => {
         button.classList.toggle('active', buttonIndex === currentIndex);
@@ -1368,7 +1388,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     thumbnails.forEach((button, index) => {
-      button.addEventListener('click', () => showImage(index));
+      button.addEventListener('click', () => {
+        showImage(index);
+
+        const link = button.dataset.galleryLink;
+
+        if (link && link.trim() !== '') {
+          window.open(link, '_blank', 'noopener,noreferrer');
+        }
+      });
+    });
+
+    activeImage.addEventListener('click', () => {
+      const link = activeImage.dataset.galleryLink;
+
+      if (link && link.trim() !== '') {
+        window.open(link, '_blank', 'noopener,noreferrer');
+      }
     });
 
     if (previousButton) {
@@ -1380,6 +1416,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     showImage(currentIndex);
+  });
+});
+
+
+/* ============================================================
+   LINKED VIDEO + COPYWRITING PORTFOLIO ITEMS
+   Opens video project URLs and local public-folder files when
+   Long Form, Short Form, Articles, Emails, or Social Media items
+   are clicked.
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const linkedItems = Array.from(document.querySelectorAll(
+    '#view-work .work-video-item[data-project-link], #view-work .work-doc-item[data-project-link]'
+  ));
+
+  if (!linkedItems.length) return;
+
+  linkedItems.forEach((item) => {
+    item.title = 'Open project';
+
+    item.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const link = (item.dataset.projectLink || '').trim();
+
+      if (!link) {
+        alert('Project link is not yet set.');
+        return;
+      }
+
+      window.open(link, '_blank', 'noopener,noreferrer');
+    });
   });
 });
 
@@ -1998,4 +2067,111 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderHighScores();
   draw();
+});
+
+/* ============================================================
+   FLOATING PORTFOLIO TOOLTIP OVERLAY
+   Uses a body-level tooltip so hover dialogue boxes are not clipped by
+   the Windows form, right panel, gallery strip, or fullscreen containers.
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const tooltipTargets = Array.from(document.querySelectorAll(
+    '#view-work .gallery-slider-icon[data-tooltip-date], #view-work .work-doc-item[data-tooltip-date], #view-work .work-video-item[data-tooltip-date]'
+  ));
+
+  if (!tooltipTargets.length) return;
+
+  let activeTarget = null;
+  let tooltip = document.querySelector('.portfolio-floating-tooltip');
+
+  if (!tooltip) {
+    tooltip = document.createElement('div');
+    tooltip.className = 'portfolio-floating-tooltip';
+    tooltip.setAttribute('role', 'tooltip');
+    document.body.appendChild(tooltip);
+  }
+
+  function setTooltipContent(target) {
+    const fileName =
+      target.dataset.galleryFilename ||
+      target.dataset.projectFilename ||
+      'File name not provided';
+    const date = target.dataset.tooltipDate || 'Placeholder date';
+    const description = target.dataset.tooltipDescription || 'Placeholder description.';
+
+    tooltip.textContent =
+      `File name: ${fileName}\n` +
+      `Date: ${date}\n` +
+      description;
+  }
+
+  function positionTooltip(target) {
+    if (!target || !tooltip) return;
+
+    const gap = 10;
+    const viewportPadding = 8;
+    const targetRect = target.getBoundingClientRect();
+
+    // Force every portfolio tooltip to open from the RIGHT side of the icon.
+    // The older behavior flipped the tooltip to the left when the item was near
+    // the right edge of the Windows form. This version never flips. Instead,
+    // it narrows the tooltip when needed so items such as Long Form Video 5/10
+    // and Short Form Video 5/10 still show the dialogue on the right.
+    tooltip.classList.remove('tooltip-left');
+    tooltip.classList.add('is-visible');
+
+    const preferredLeft = targetRect.right + gap;
+    const availableRight = window.innerWidth - preferredLeft - viewportPadding;
+    const tooltipWidth = Math.max(150, Math.min(240, availableRight));
+
+    tooltip.style.width = `${Math.round(tooltipWidth)}px`;
+
+    // Keep the left edge anchored to the right side of the icon. Do not clamp
+    // the left value backward, because that makes the tooltip appear on the
+    // left side of the icon.
+    const left = preferredLeft;
+
+    const tooltipRect = tooltip.getBoundingClientRect();
+    let top = targetRect.top + 8;
+
+    if (top + tooltipRect.height > window.innerHeight - viewportPadding) {
+      top = window.innerHeight - tooltipRect.height - viewportPadding;
+    }
+
+    if (top < viewportPadding) top = viewportPadding;
+
+    tooltip.style.left = `${Math.round(left)}px`;
+    tooltip.style.top = `${Math.round(top)}px`;
+  }
+
+  function showTooltip(target) {
+    activeTarget = target;
+    setTooltipContent(target);
+    positionTooltip(target);
+  }
+
+  function hideTooltip(target) {
+    if (target && activeTarget && target !== activeTarget) return;
+    activeTarget = null;
+    tooltip.classList.remove('is-visible', 'tooltip-left');
+  }
+
+  tooltipTargets.forEach((target) => {
+    if (target.dataset.floatingTooltipReady === 'true') return;
+    target.dataset.floatingTooltipReady = 'true';
+
+    target.addEventListener('mouseenter', () => showTooltip(target));
+    target.addEventListener('mousemove', () => positionTooltip(target));
+    target.addEventListener('mouseleave', () => hideTooltip(target));
+    target.addEventListener('focus', () => showTooltip(target));
+    target.addEventListener('blur', () => hideTooltip(target));
+  });
+
+  window.addEventListener('scroll', () => {
+    if (activeTarget) positionTooltip(activeTarget);
+  }, true);
+
+  window.addEventListener('resize', () => {
+    if (activeTarget) positionTooltip(activeTarget);
+  });
 });

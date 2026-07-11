@@ -4357,3 +4357,92 @@ input[type="range"]::-webkit-slider-thumb{appearance:none;height:14px;width:14px
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ============================================================
+   FLOATING PORTFOLIO TOOLTIP OVERLAY FIX
+   Moves hover dialogue boxes outside the Windows form clipping area.
+   This lets the tooltip overlap in front of the WinForm when the window
+   is not fullscreen instead of being cropped by the panel edges.
+   ============================================================ */
+.winform #view-work .gallery-slider-icon[data-tooltip-date]:hover::after,
+.winform #view-work .work-doc-item[data-tooltip-date]:hover::after,
+.winform #view-work .work-video-item[data-tooltip-date]:hover::after,
+.winform #view-work .gallery-slider-icon[data-tooltip-date]:hover::before,
+.winform #view-work .work-doc-item[data-tooltip-date]:hover::before,
+.winform #view-work .work-video-item[data-tooltip-date]:hover::before {
+  content: none !important;
+  display: none !important;
+}
+
+.portfolio-floating-tooltip {
+  position: fixed !important;
+  left: 0;
+  top: 0;
+  width: 240px;
+  min-height: 48px;
+  padding: 8px 10px;
+  background: #ffffe1;
+  border: 1px solid #7a7a7a;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  color: #000;
+  font-family: var(--ui-font);
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: left;
+  white-space: pre-line;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 999999;
+  box-sizing: border-box;
+}
+
+.portfolio-floating-tooltip.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.portfolio-floating-tooltip::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: -6px;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #7a7a7a;
+}
+
+.portfolio-floating-tooltip.tooltip-left::before {
+  left: auto;
+  right: -6px;
+  border-right: 0;
+  border-left: 6px solid #7a7a7a;
+}
+
+
+/* ============================================================
+   FINAL TOOLTIP RIGHT-SIDE LOCK
+   Ensures hover dialogue boxes never flip to the left side of
+   document/video icons, including Video 5/10 positions.
+   ============================================================ */
+.portfolio-floating-tooltip {
+  width: min(240px, calc(100vw - 16px)) !important;
+  max-width: calc(100vw - 16px) !important;
+}
+
+.portfolio-floating-tooltip::before,
+.portfolio-floating-tooltip.tooltip-left::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 10px !important;
+  left: -6px !important;
+  right: auto !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-top: 6px solid transparent !important;
+  border-bottom: 6px solid transparent !important;
+  border-left: 0 !important;
+  border-right: 6px solid #7a7a7a !important;
+}
