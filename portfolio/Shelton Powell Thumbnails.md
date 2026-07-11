@@ -1,4 +1,4 @@
-# YouTube Thumbnail Design for Dr. Brad Klontz
+# YouTube Thumbnail Design for Shelton Powell
 
 Client: Shelton Powell
 Project Type: YouTube Thumbnail Design
