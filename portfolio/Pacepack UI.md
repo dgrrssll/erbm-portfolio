@@ -1,4 +1,4 @@
-Website UI/UX Design for PacePack
+# Website UI/UX Design for PacePack
 
 Client: PacePack
 Project Type: Website UI/UX Design
@@ -6,7 +6,7 @@ Role: UI/UX Designer/Graphic Designer
 
 Designed a website UI/UX concept for PacePack, a curated runner gift box brand for marathon runners, athletes, fitness enthusiasts, and gift-givers. The website concept was created to present a simple, energetic, and user-friendly shopping experience for customers looking for race-day essentials, recovery tools, motivational items, and fitness accessories.
 
-Key Work
+# Key Work
 Created a Shopify-style website concept for a runner gift box brand
 Designed a clean, modern, and athletic layout
 Organized runner kit options such as Start Line Pack, Performance Pack, and Runner’s High Pack
