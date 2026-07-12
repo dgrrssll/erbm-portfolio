@@ -1,4 +1,32 @@
 // Simple interactions for the 90s portfolio desktop
+// Shared responsive window helpers.
+function getTaskbarHeight() {
+  const value = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue('--startbar-height')
+  );
+  return Number.isFinite(value) ? value : 35;
+}
+
+function keepWindowInsideViewport(winEl) {
+  if (!winEl || winEl.classList.contains('hidden') || winEl.classList.contains('fullscreen')) return;
+
+  requestAnimationFrame(() => {
+    const gap = 8;
+    const taskbarHeight = getTaskbarHeight();
+    const rect = winEl.getBoundingClientRect();
+    const availableRight = Math.max(gap, window.innerWidth - rect.width - gap);
+    const availableBottom = Math.max(gap, window.innerHeight - taskbarHeight - rect.height - gap);
+
+    if (rect.left < gap || rect.left > availableRight || rect.top < gap || rect.top > availableBottom) {
+      const nextLeft = Math.min(Math.max(gap, rect.left), availableRight);
+      const nextTop = Math.min(Math.max(gap, rect.top), availableBottom);
+      winEl.style.transform = 'none';
+      winEl.style.left = `${nextLeft}px`;
+      winEl.style.top = `${nextTop}px`;
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   const boot = document.getElementById('boot');
   const desktop = document.getElementById('desktop');
@@ -371,7 +399,7 @@ setTimeout(()=>{ finishBootSequence(); }, 3000 + 2500);
   // Click animation handling: apply XP-style float or zoom animations on click
   const CLICK_SELECTORS = 'button, .win-btn, .start-button, .menu-bar span, .tab, .nav-btn, .task-item, .btn-main, .btn-small, .quick-launch';
   function triggerClickAnim(e){
-    if(e.target.closest('.gallery-slider-icon, .work-doc-item, .work-video-item')) return;
+    if(e.target.closest('.gallery-slider-icon, .work-doc-item, .work-video-item, .winform .win-btn')) return;
     const el = e.target.closest(CLICK_SELECTORS);
     if(!el) return;
     const variant = el.dataset.clickAnim || (el.classList.contains('icon') || el.classList.contains('tab') ? 'float' : 'zoom');
@@ -451,12 +479,11 @@ setTimeout(()=>{ finishBootSequence(); }, 3000 + 2500);
       dragging = true;
       startX = e.clientX;
       startY = e.clientY;
-      // compute startLeft/Top from style or bounding rect
+      // Convert the responsive centered position to explicit pixels before dragging.
       const rect = winEl.getBoundingClientRect();
-      const style = getComputedStyle(winEl);
-      startLeft = parseFloat(style.left) || rect.left || 0;
-      startTop = parseFloat(style.top) || rect.top || 0;
-      // ensure explicit left/top so moves work
+      startLeft = rect.left || 0;
+      startTop = rect.top || 0;
+      winEl.style.transform = 'none';
       winEl.style.left = startLeft + 'px';
       winEl.style.top = startTop + 'px';
       // bring to front
@@ -494,9 +521,9 @@ setTimeout(()=>{ finishBootSequence(); }, 3000 + 2500);
       dragging = true;
       startX = t.clientX; startY = t.clientY;
       const rect = winEl.getBoundingClientRect();
-      const style = getComputedStyle(winEl);
-      startLeft = parseFloat(style.left) || rect.left || 0;
-      startTop = parseFloat(style.top) || rect.top || 0;
+      startLeft = rect.left || 0;
+      startTop = rect.top || 0;
+      winEl.style.transform = 'none';
       winEl.style.left = startLeft + 'px'; winEl.style.top = startTop + 'px';
       zIndexCounter += 1; winEl.style.zIndex = zIndexCounter;
       e.preventDefault();
@@ -884,9 +911,10 @@ document.getElementById('welcome-toggle-about').addEventListener('click', (e) =>
 });
 
 /* ============================================================
-   RESTORED CONTACT ME WINDOW BEHAVIOR
-   Opens the Contact Me window from desktop icon, My Computer email link,
-   and Start Menu email item. Also controls toolbar icon grayscale/color.
+   CONTACT ME WINDOW BEHAVIOR
+   - Fullscreen minimise/close now work reliably.
+   - Taskbar restoration preserves the current window state.
+   - Window controls are excluded from the fade-out click animation.
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   const contactIcon = document.getElementById('contact-me');
@@ -898,8 +926,57 @@ document.addEventListener('DOMContentLoaded', () => {
   let contactZIndex = 4600;
 
   function bringContactToFront() {
-    contactZIndex += 1;
+    contactZIndex = Math.min(contactZIndex + 1, 19000);
     contactWindow.style.zIndex = String(contactZIndex);
+  }
+
+  const closeBtn = contactWindow.querySelector('.win-btn.close');
+  const minimiseBtn = contactWindow.querySelector('.win-btn.minimise');
+  const maximiseBtn = contactWindow.querySelector('.win-btn.maximise');
+
+  function setMaximiseIcon() {
+    if (!maximiseBtn) return;
+    const img = maximiseBtn.querySelector('img.btn-icon');
+    if (!img) return;
+
+    const fullscreen = contactWindow.classList.contains('fullscreen');
+    maximiseBtn.dataset.iconNormal = fullscreen ? 'assets/resize.png' : 'assets/maximise.png';
+    maximiseBtn.dataset.iconHover = fullscreen ? 'assets/resize_hover.png' : 'assets/maximise_hover.png';
+    img.src = maximiseBtn.dataset.iconNormal;
+    maximiseBtn.setAttribute('aria-label', fullscreen ? 'Restore' : 'Maximise');
+    maximiseBtn.title = fullscreen ? 'Restore' : 'Maximise';
+  }
+
+  function restoreContactGeometry() {
+    contactWindow.classList.remove('fullscreen');
+
+    try {
+      const prev = contactWindow.dataset.prevStyle
+        ? JSON.parse(contactWindow.dataset.prevStyle)
+        : null;
+
+      if (prev) {
+        contactWindow.style.left = prev.left || '';
+        contactWindow.style.top = prev.top || '';
+        contactWindow.style.width = prev.width || '';
+        contactWindow.style.height = prev.height || '';
+        contactWindow.style.transform = prev.transform || '';
+      } else {
+        contactWindow.style.left = '';
+        contactWindow.style.top = '';
+        contactWindow.style.width = '';
+        contactWindow.style.height = '';
+        contactWindow.style.transform = '';
+      }
+    } catch (error) {
+      contactWindow.style.left = '';
+      contactWindow.style.top = '';
+      contactWindow.style.width = '';
+      contactWindow.style.height = '';
+      contactWindow.style.transform = '';
+    }
+
+    setMaximiseIcon();
   }
 
   function createContactTaskButton() {
@@ -913,6 +990,7 @@ document.addEventListener('DOMContentLoaded', () => {
       taskBtn.className = 'tab_container';
       taskBtn.setAttribute('role', 'button');
       taskBtn.setAttribute('tabindex', '0');
+      taskBtn.setAttribute('aria-label', 'Restore Contact Me');
 
       const img = document.createElement('img');
       img.src = 'assets/outlook.png';
@@ -930,14 +1008,16 @@ document.addEventListener('DOMContentLoaded', () => {
         contactWindow.classList.remove('hidden');
         contactWindow.setAttribute('aria-hidden', 'false');
         bringContactToFront();
+        setMaximiseIcon();
+        keepWindowInsideViewport(contactWindow);
         taskBtn.classList.add('tab_container_focused');
         setTimeout(() => taskBtn.classList.remove('tab_container_focused'), 120);
       };
 
       taskBtn.addEventListener('click', restore);
-      taskBtn.addEventListener('keydown', (ev) => {
-        if (ev.key === 'Enter' || ev.key === ' ') {
-          ev.preventDefault();
+      taskBtn.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
           restore();
         }
       });
@@ -951,8 +1031,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openContactWindow() {
     if (!contactWindow.dataset.openedOnce) {
-      contactWindow.style.top = '8%';
-      contactWindow.style.left = '22%';
+      // Let the responsive CSS center and size the window on first open.
+      contactWindow.style.left = '';
+      contactWindow.style.top = '';
+      contactWindow.style.width = '';
+      contactWindow.style.height = '';
+      contactWindow.style.transform = '';
       contactWindow.dataset.openedOnce = 'true';
     }
 
@@ -960,29 +1044,88 @@ document.addEventListener('DOMContentLoaded', () => {
     contactWindow.setAttribute('aria-hidden', 'false');
     bringContactToFront();
     createContactTaskButton();
+    setMaximiseIcon();
+    keepWindowInsideViewport(contactWindow);
+  }
+
+  function minimiseContactWindow(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    // Keep the fullscreen state so the taskbar button restores it maximized.
+    contactWindow.classList.add('hidden');
+    contactWindow.setAttribute('aria-hidden', 'true');
+    createContactTaskButton();
+  }
+
+  function closeContactWindow(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    restoreContactGeometry();
+    contactWindow.classList.add('hidden');
+    contactWindow.setAttribute('aria-hidden', 'true');
+
+    const taskBtn = document.getElementById('task-contact');
+    if (taskBtn) taskBtn.remove();
+  }
+
+  function toggleContactMaximise(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (!contactWindow.classList.contains('fullscreen')) {
+      const prev = {
+        left: contactWindow.style.left || '',
+        top: contactWindow.style.top || '',
+        width: contactWindow.style.width || '',
+        height: contactWindow.style.height || '',
+        transform: contactWindow.style.transform || ''
+      };
+
+      try {
+        contactWindow.dataset.prevStyle = JSON.stringify(prev);
+      } catch (error) {}
+
+      contactWindow.classList.add('fullscreen');
+      contactWindow.style.left = '';
+      contactWindow.style.top = '';
+      contactWindow.style.width = '';
+      contactWindow.style.height = '';
+      contactWindow.style.transform = '';
+    } else {
+      restoreContactGeometry();
+    }
+
+    setMaximiseIcon();
+    bringContactToFront();
   }
 
   window.openContactWindow = openContactWindow;
 
   if (contactIcon) {
-    contactIcon.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    contactIcon.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       openContactWindow();
     });
   }
 
-  document.addEventListener('click', (e) => {
-    const trigger = e.target.closest(
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest(
       '#welcome-open-contact, #start-open-contact, #contact-me, [data-open-contact-window="true"]'
     );
 
     if (!trigger) return;
 
-    e.preventDefault();
-    e.stopPropagation();
-    if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
-
+    event.preventDefault();
+    event.stopPropagation();
     openContactWindow();
 
     if (trigger.id === 'start-open-contact' || trigger.closest('#start-menu')) {
@@ -998,91 +1141,32 @@ document.addEventListener('DOMContentLoaded', () => {
   contactWindow.addEventListener('mousedown', bringContactToFront);
   contactWindow.addEventListener('touchstart', bringContactToFront, { passive: true });
 
-  const closeBtn = contactWindow.querySelector('.win-btn.close');
-  const minimiseBtn = contactWindow.querySelector('.win-btn.minimise');
-  const maximiseBtn = contactWindow.querySelector('.win-btn.maximise');
-
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      contactWindow.classList.add('hidden');
-      contactWindow.setAttribute('aria-hidden', 'true');
-      const taskBtn = document.getElementById('task-contact');
-      if (taskBtn) taskBtn.remove();
-    });
-  }
-
-  if (minimiseBtn) {
-    minimiseBtn.addEventListener('click', () => {
-      contactWindow.classList.add('hidden');
-      contactWindow.setAttribute('aria-hidden', 'true');
-      createContactTaskButton();
-    });
-  }
-
-  if (maximiseBtn) {
-    maximiseBtn.addEventListener('click', () => {
-      if (!contactWindow.classList.contains('fullscreen')) {
-        const prev = {
-          left: contactWindow.style.left || '',
-          top: contactWindow.style.top || '',
-          width: contactWindow.style.width || '',
-          height: contactWindow.style.height || ''
-        };
-
-        try { contactWindow.dataset.prevStyle = JSON.stringify(prev); } catch (err) {}
-
-        contactWindow.classList.add('fullscreen');
-        contactWindow.style.left = '';
-        contactWindow.style.top = '';
-        contactWindow.style.width = '';
-        contactWindow.style.height = '';
-
-        const img = maximiseBtn.querySelector('img.btn-icon');
-        if (img) img.src = 'assets/resize.png';
-      } else {
-        contactWindow.classList.remove('fullscreen');
-
-        try {
-          const prev = contactWindow.dataset.prevStyle ? JSON.parse(contactWindow.dataset.prevStyle) : null;
-          if (prev) {
-            contactWindow.style.left = prev.left;
-            contactWindow.style.top = prev.top;
-            contactWindow.style.width = prev.width;
-            contactWindow.style.height = prev.height;
-          }
-        } catch (err) {
-          contactWindow.style.left = '';
-          contactWindow.style.top = '';
-          contactWindow.style.width = '';
-          contactWindow.style.height = '';
-        }
-
-        const img = maximiseBtn.querySelector('img.btn-icon');
-        if (img) img.src = 'assets/maximise.png';
-      }
-
-      bringContactToFront();
-    });
-  }
+  if (closeBtn) closeBtn.addEventListener('click', closeContactWindow);
+  if (minimiseBtn) minimiseBtn.addEventListener('click', minimiseContactWindow);
+  if (maximiseBtn) maximiseBtn.addEventListener('click', toggleContactMaximise);
 
   function setupButtonIconHover(btn, normal, hover) {
     if (!btn) return;
     const img = btn.querySelector('img.btn-icon');
     if (!img) return;
+
+    btn.dataset.iconNormal = normal;
+    btn.dataset.iconHover = hover;
     img.src = normal;
-    btn.addEventListener('mouseenter', () => { img.src = hover; });
+
+    btn.addEventListener('mouseenter', () => {
+      img.src = btn.dataset.iconHover || hover;
+    });
+
     btn.addEventListener('mouseleave', () => {
-      if (btn === maximiseBtn && contactWindow.classList.contains('fullscreen')) {
-        img.src = 'assets/resize.png';
-      } else {
-        img.src = normal;
-      }
+      img.src = btn.dataset.iconNormal || normal;
     });
   }
 
   setupButtonIconHover(minimiseBtn, 'assets/minimise.png', 'assets/minimise_hover.png');
   setupButtonIconHover(maximiseBtn, 'assets/maximise.png', 'assets/maximise_hover.png');
   setupButtonIconHover(closeBtn, 'assets/close.png', 'assets/close_hover.png');
+  setMaximiseIcon();
 
   function makeContactDraggable() {
     const handle = contactWindow.querySelector('.titlebar');
@@ -1102,26 +1186,32 @@ document.addEventListener('DOMContentLoaded', () => {
       startY = clientY;
 
       const rect = contactWindow.getBoundingClientRect();
-      const style = getComputedStyle(contactWindow);
-      startLeft = parseFloat(style.left) || rect.left || 0;
-      startTop = parseFloat(style.top) || rect.top || 0;
+      startLeft = rect.left || 0;
+      startTop = rect.top || 0;
 
+      contactWindow.style.transform = 'none';
       contactWindow.style.left = `${startLeft}px`;
       contactWindow.style.top = `${startTop}px`;
       bringContactToFront();
       document.body.style.userSelect = 'none';
     }
 
-    handle.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.win-btn')) return;
-      beginDrag(e.clientX, e.clientY);
-      e.preventDefault();
+    handle.addEventListener('mousedown', (event) => {
+      if (event.target.closest('.win-btn')) return;
+      beginDrag(event.clientX, event.clientY);
+      event.preventDefault();
     });
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', (event) => {
       if (!dragging) return;
-      contactWindow.style.left = `${startLeft + e.clientX - startX}px`;
-      contactWindow.style.top = `${startTop + e.clientY - startY}px`;
+      const taskbarHeight = getTaskbarHeight();
+      const rect = contactWindow.getBoundingClientRect();
+      const maxLeft = Math.max(8, window.innerWidth - rect.width - 8);
+      const maxTop = Math.max(8, window.innerHeight - taskbarHeight - rect.height - 8);
+      const nextLeft = Math.min(Math.max(8, startLeft + event.clientX - startX), maxLeft);
+      const nextTop = Math.min(Math.max(8, startTop + event.clientY - startY), maxTop);
+      contactWindow.style.left = `${nextLeft}px`;
+      contactWindow.style.top = `${nextTop}px`;
     });
 
     document.addEventListener('mouseup', () => {
@@ -1130,18 +1220,25 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.userSelect = '';
     });
 
-    handle.addEventListener('touchstart', (e) => {
-      if (e.target.closest('.win-btn')) return;
-      const t = e.touches[0];
-      beginDrag(t.clientX, t.clientY);
-      e.preventDefault();
+    handle.addEventListener('touchstart', (event) => {
+      if (event.target.closest('.win-btn')) return;
+      const touch = event.touches[0];
+      beginDrag(touch.clientX, touch.clientY);
+      event.preventDefault();
     }, { passive: false });
 
-    document.addEventListener('touchmove', (e) => {
+    document.addEventListener('touchmove', (event) => {
       if (!dragging) return;
-      const t = e.touches[0];
-      contactWindow.style.left = `${startLeft + t.clientX - startX}px`;
-      contactWindow.style.top = `${startTop + t.clientY - startY}px`;
+      const touch = event.touches[0];
+      const taskbarHeight = getTaskbarHeight();
+      const rect = contactWindow.getBoundingClientRect();
+      const maxLeft = Math.max(8, window.innerWidth - rect.width - 8);
+      const maxTop = Math.max(8, window.innerHeight - taskbarHeight - rect.height - 8);
+      const nextLeft = Math.min(Math.max(8, startLeft + touch.clientX - startX), maxLeft);
+      const nextTop = Math.min(Math.max(8, startTop + touch.clientY - startY), maxTop);
+      contactWindow.style.left = `${nextLeft}px`;
+      contactWindow.style.top = `${nextTop}px`;
+      event.preventDefault();
     }, { passive: false });
 
     document.addEventListener('touchend', () => {
@@ -1165,7 +1262,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateMessageToolState() {
-    const hasMessage = contactMessageInput && contactMessageInput.value.trim().length > 0;
+    const hasMessage = Boolean(contactMessageInput && contactMessageInput.value.trim().length > 0);
 
     [contactSendBtn, contactCheckBtn, contactSpellingBtn].forEach((button) => {
       if (!button) return;
@@ -1188,7 +1285,6 @@ document.addEventListener('DOMContentLoaded', () => {
       contactMessageInput.value.trim().length > 0;
 
     const hasMessage = contactMessageInput.value.trim().length > 0;
-
     contactSendBtn.classList.toggle('contact-toolbar-button-disabled', !hasMessage);
     contactSendBtn.setAttribute('aria-disabled', String(!ready));
   }
@@ -1202,8 +1298,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (contactComposeForm) {
-    contactComposeForm.addEventListener('submit', (e) => {
-      e.preventDefault();
+    contactComposeForm.addEventListener('submit', (event) => {
+      event.preventDefault();
       if (contactSendBtn) contactSendBtn.click();
     });
   }
@@ -1217,66 +1313,60 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Get form data
       const fromEmail = contactEmailInput ? contactEmailInput.value.trim() : '';
       const subject = contactSubjectInput ? contactSubjectInput.value.trim() : '';
       const message = contactMessageInput ? contactMessageInput.value.trim() : '';
 
-      // Validate email format
       if (!isValidContactEmail(fromEmail)) {
         alert('Please enter a valid email address.');
         return;
       }
 
-      // Disable button and show sending status
+      if (typeof emailjs === 'undefined') {
+        alert('The email service is unavailable. Please refresh the page and try again.');
+        return;
+      }
+
       contactSendBtn.disabled = true;
       const originalText = contactSendBtn.innerHTML;
       contactSendBtn.innerHTML = '<img class="contact-send-icon" alt="send" width="40" height="30" src="assets/sendmail.png" /><p>Sending...</p>';
 
-      // Send email via EmailJS
       emailjs.send(
         'service_ufnjcsb',
         'template_batg7sj',
         {
           from_email: fromEmail,
-          subject: subject,
-          message: message
+          subject,
+          message
         }
-      ).then((response) => {
-        // Success: show confirmation and clear form
+      ).then(() => {
         alert('Message sent successfully!');
-        
-        // Clear form fields
+
         if (contactEmailInput) contactEmailInput.value = '';
         if (contactSubjectInput) contactSubjectInput.value = '';
         if (contactMessageInput) contactMessageInput.value = '';
-        
-        // Update button states (icons should return to grayscale)
+
+        contactSendBtn.disabled = false;
+        contactSendBtn.innerHTML = originalText;
         updateContactSendState();
         updateMessageToolState();
-        
-        // Restore button UI
-        contactSendBtn.disabled = false;
-        contactSendBtn.innerHTML = originalText;
       }).catch((error) => {
-        // Error: show error message
         console.error('EmailJS error:', error);
         alert('Failed to send message. Please try again.');
-        
-        // Restore button UI
         contactSendBtn.disabled = false;
         contactSendBtn.innerHTML = originalText;
+        updateContactSendState();
+        updateMessageToolState();
       });
     });
   }
 
-  // Initialize EmailJS
   try {
-    emailjs.init({
-      publicKey: 'iIQ5ZH0pF_Gk6nJzK'
-    });
-  } catch (e) {
-    console.error('EmailJS initialization failed:', e);
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({ publicKey: 'iIQ5ZH0pF_Gk6nJzK' });
+    }
+  } catch (error) {
+    console.error('EmailJS initialization failed:', error);
   }
 
   const contactTextControls = {
@@ -1332,7 +1422,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateContactSendState();
   updateMessageToolState();
 });
-
 
 /* ============================================================
    WORK DETAIL GALLERY PANEL BEHAVIOR
@@ -1859,8 +1948,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openTetrisWindow() {
     if (!tetrisWindow.dataset.openedOnce) {
-      tetrisWindow.style.top = '7%';
-      tetrisWindow.style.left = '20%';
+      tetrisWindow.style.top = '';
+      tetrisWindow.style.left = '';
+      tetrisWindow.style.width = '';
+      tetrisWindow.style.height = '';
+      tetrisWindow.style.transform = '';
       tetrisWindow.dataset.openedOnce = 'true';
     }
 
@@ -1981,9 +2073,9 @@ document.addEventListener('DOMContentLoaded', () => {
       startX = clientX;
       startY = clientY;
       const rect = tetrisWindow.getBoundingClientRect();
-      const style = getComputedStyle(tetrisWindow);
-      startLeft = parseFloat(style.left) || rect.left || 0;
-      startTop = parseFloat(style.top) || rect.top || 0;
+      startLeft = rect.left || 0;
+      startTop = rect.top || 0;
+      tetrisWindow.style.transform = 'none';
       tetrisWindow.style.left = `${startLeft}px`;
       tetrisWindow.style.top = `${startTop}px`;
       bringTetrisToFront();
@@ -2174,4 +2266,35 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     if (activeTarget) positionTooltip(activeTarget);
   });
+});
+
+/* ============================================================
+   RESPONSIVE DESKTOP WINDOW CONSTRAINTS
+   Keeps normal windows inside the visible desktop when the browser size or
+   monitor aspect ratio changes. Fullscreen windows continue to use the
+   dedicated fullscreen CSS and always leave the XP taskbar visible.
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const windows = Array.from(document.querySelectorAll('.winform'));
+
+  function constrainVisibleWindows() {
+    windows.forEach(keepWindowInsideViewport);
+  }
+
+  window.addEventListener('resize', constrainVisibleWindows, { passive: true });
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      const target = mutation.target;
+      if (target instanceof HTMLElement && target.classList.contains('winform')) {
+        keepWindowInsideViewport(target);
+      }
+    });
+  });
+
+  windows.forEach((winEl) => {
+    observer.observe(winEl, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  constrainVisibleWindows();
 });

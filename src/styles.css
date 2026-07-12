@@ -4446,3 +4446,311 @@ input[type="range"]::-webkit-slider-thumb{appearance:none;height:14px;width:14px
   border-left: 0 !important;
   border-right: 6px solid #7a7a7a !important;
 }
+
+
+/* ============================================================
+   FINAL WINDOW CONTROL + DESKTOP RESPONSIVENESS PATCH
+   Keep this block at the VERY END of styles.css.
+   ============================================================ */
+
+/* A hidden WinForm must remain hidden even when it still has fullscreen. */
+.winform.hidden,
+.winform.fullscreen.hidden,
+#contact-window.hidden,
+#contact-window.fullscreen.hidden,
+#tetris-window.hidden,
+#tetris-window.fullscreen.hidden,
+#mycomputer-window.hidden,
+#mycomputer-window.fullscreen.hidden {
+  display: none !important;
+}
+
+/* Real button reset for the title-bar controls. */
+.winform .titlebar .win-btn {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  font: inherit !important;
+  line-height: 1 !important;
+  min-width: 26px !important;
+  flex: 0 0 26px !important;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 2;
+}
+
+.winform .titlebar .win-btn:focus-visible {
+  outline: 1px dotted #fff !important;
+  outline-offset: -3px !important;
+}
+
+/* Normal windows scale to the visible desktop and are centered by default. */
+.winform:not(.fullscreen) {
+  left: 50%;
+  top: clamp(8px, 4vh, 48px);
+  transform: translateX(-50%);
+  width: min(900px, calc(100vw - 24px));
+  height: min(650px, calc(100dvh - var(--startbar-height) - 24px));
+  max-width: calc(100vw - 24px) !important;
+  max-height: calc(100dvh - var(--startbar-height) - 24px) !important;
+  min-width: min(560px, calc(100vw - 24px));
+  min-height: min(360px, calc(100dvh - var(--startbar-height) - 24px));
+  overflow: hidden;
+}
+
+/* Tetris has an older ID-specific position rule; override it here while
+   still allowing inline pixel positions after the user drags the window. */
+#tetris-window.winform:not(.fullscreen) {
+  left: 50%;
+  top: clamp(8px, 4vh, 48px);
+  transform: translateX(-50%);
+  width: min(760px, calc(100vw - 24px));
+  height: min(680px, calc(100dvh - var(--startbar-height) - 24px));
+}
+
+/* Fullscreen always fills only the area above the XP taskbar. */
+.winform.fullscreen {
+  inset: 0 0 var(--startbar-height) 0 !important;
+  width: 100vw !important;
+  height: calc(100dvh - var(--startbar-height)) !important;
+  max-width: none !important;
+  max-height: none !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+
+.winform .windowborder,
+.winform .windowsbody,
+.winform .welcome-page,
+.winform .welcome-page > .accordion_content {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Desktop icons flow into another column on short/wide monitors. */
+.desktop .icons {
+  position: absolute !important;
+  inset: 0 0 var(--startbar-height) 0 !important;
+  display: grid !important;
+  grid-template-rows: repeat(auto-fit, 92px) !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: 96px !important;
+  align-content: start !important;
+  justify-content: start !important;
+  gap: clamp(6px, 1.4vh, 18px) 8px !important;
+  padding: clamp(10px, 2vh, 20px) !important;
+  overflow: hidden !important;
+  pointer-events: none;
+}
+
+.desktop .icons .icon {
+  width: 88px !important;
+  min-width: 0 !important;
+  pointer-events: auto;
+}
+
+.desktop .icons .icon-art {
+  width: clamp(46px, 6vh, 64px) !important;
+  height: clamp(46px, 6vh, 64px) !important;
+}
+
+/* Flexible XP taskbar for standard, ultrawide, and narrow computer screens. */
+.bluebar {
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+
+.bluebar .startbtn,
+.bluebar .startbtn_active {
+  flex: 0 0 clamp(88px, 12vw, 120px) !important;
+  width: clamp(88px, 12vw, 120px) !important;
+}
+
+.bluebar .tabbar {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.bluebar .tab_container,
+.bluebar .tab_container_focused {
+  flex: 1 1 150px !important;
+  min-width: 72px !important;
+  max-width: min(200px, 26vw) !important;
+}
+
+.bluebar .tab_icon {
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 7px !important;
+  object-fit: contain !important;
+}
+
+.bluebar .tab_text {
+  min-width: 0 !important;
+  font-size: clamp(11px, 1vw, 14px) !important;
+}
+
+.bluebar .icontray {
+  flex: 0 0 clamp(130px, 16vw, 170px) !important;
+  width: clamp(130px, 16vw, 170px) !important;
+  min-width: 0 !important;
+  padding: 0 clamp(5px, 1vw, 10px) !important;
+  gap: 6px !important;
+}
+
+.bluebar .iconrow {
+  width: auto !important;
+  min-width: 0 !important;
+  gap: clamp(3px, .6vw, 6px) !important;
+}
+
+.bluebar .time-display {
+  white-space: nowrap !important;
+  font-size: clamp(10px, .9vw, 12px) !important;
+}
+
+/* Start menu stays usable on short laptop displays. */
+.startmenu {
+  width: min(440px, calc(100vw - 8px)) !important;
+  height: min(600px, calc(100dvh - var(--startbar-height) - 8px)) !important;
+  max-height: calc(100dvh - var(--startbar-height) - 8px) !important;
+  overflow: hidden !important;
+}
+
+.startmenu .menu {
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.startmenu .leftmenu,
+.startmenu .rightmenu {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Contact compose form adapts to shorter and narrower desktop windows. */
+#contact-window .contact-main,
+#contact-window .contact-compose-form,
+#contact-window .contact-richfield {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+#contact-window .contact-icons-toolbar {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  scrollbar-width: thin;
+}
+
+#contact-window .contact-mailing-fields {
+  min-width: 0 !important;
+}
+
+#contact-window .contact-richtextbox {
+  min-height: 100px !important;
+}
+
+/* Work and About panes remain readable on 4:3 and smaller laptop screens. */
+@media (max-width: 1100px) {
+  .winform #view-work .leftpanel,
+  .winform.fullscreen #view-work .leftpanel {
+    flex-basis: 220px !important;
+    width: 220px !important;
+    min-width: 220px !important;
+    max-width: 220px !important;
+  }
+
+  .winform #view-about .about-top {
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) !important;
+    gap: 24px !important;
+  }
+
+  .winform #view-about:not(.hidden) {
+    padding: 28px 32px !important;
+  }
+}
+
+@media (max-height: 720px), (min-aspect-ratio: 2/1) {
+  .winform:not(.fullscreen) {
+    top: 8px;
+    height: calc(100dvh - var(--startbar-height) - 16px);
+    max-height: calc(100dvh - var(--startbar-height) - 16px) !important;
+  }
+
+  #contact-window .contact-icons-toolbar {
+    height: 46px !important;
+    min-height: 46px !important;
+    padding-block: 2px !important;
+  }
+
+  #contact-window .contact-toolbar-button {
+    height: 40px !important;
+    padding-block: 1px !important;
+  }
+
+  #contact-window .contact-toolbar-button img {
+    max-height: 25px !important;
+  }
+
+  #contact-window .contact-mailing {
+    margin-block: 4px !important;
+  }
+
+  #contact-window .contact-richtextbox {
+    min-height: 80px !important;
+  }
+
+  .winform #view-work .rightpanel {
+    padding: 12px !important;
+  }
+
+  .winform #view-work #work-welcome {
+    padding: clamp(18px, 4vh, 34px) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .winform:not(.fullscreen) {
+    min-width: calc(100vw - 16px);
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px) !important;
+    height: calc(100dvh - var(--startbar-height) - 16px);
+    max-height: calc(100dvh - var(--startbar-height) - 16px) !important;
+    top: 8px;
+  }
+
+  .winform #view-work .main,
+  .winform.fullscreen #view-work .main {
+    flex-direction: column !important;
+  }
+
+  .winform #view-work .leftpanel,
+  .winform.fullscreen #view-work .leftpanel {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: min(190px, 32vh) !important;
+  }
+
+  .winform #view-work .rightpanel,
+  .winform.fullscreen #view-work .rightpanel {
+    min-height: 0 !important;
+  }
+
+  #contact-window .contact-mailing-text {
+    flex: 0 0 74px !important;
+  }
+
+  .bluebar .icontray {
+    flex-basis: 126px !important;
+    width: 126px !important;
+  }
+
+  .bluebar .iconrow img:nth-child(n+3) {
+    display: none !important;
+  }
+}
