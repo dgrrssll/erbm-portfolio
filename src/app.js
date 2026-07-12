@@ -466,6 +466,8 @@ setTimeout(()=>{ finishBootSequence(); }, 3000 + 2500);
     if(cs.position === 'static') winEl.style.position = 'absolute';
 
     handle.addEventListener('mousedown',(e)=>{
+      if (e.target.closest('.win-btn')) return;
+      if (window.matchMedia('(max-width: 760px)').matches) return;
       // If window is fullscreen, restore previous inline styles before dragging
       if(winEl.classList.contains('fullscreen')){
         winEl.classList.remove('fullscreen');
@@ -507,6 +509,8 @@ setTimeout(()=>{ finishBootSequence(); }, 3000 + 2500);
 
     // touch support
     handle.addEventListener('touchstart',(e)=>{
+      if (e.target.closest('.win-btn')) return;
+      if (window.matchMedia('(max-width: 760px)').matches) return;
       const t = e.touches[0];
       // If window is fullscreen, restore previous inline styles before dragging
       if(winEl.classList.contains('fullscreen')){
