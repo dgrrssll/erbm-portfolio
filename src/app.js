@@ -1335,9 +1335,16 @@ document.addEventListener('DOMContentLoaded', () => {
         'service_ufnjcsb',
         'template_batg7sj',
         {
-          from_email: fromEmail,
-          subject,
-          message
+          // These names must exactly match the EmailJS template variables:
+          // {{name}}, {{email}}, {{subject}}, {{title}}, and {{message}}
+          name: fromEmail,
+          email: fromEmail,
+          subject: subject,
+          title: subject,
+          message: message
+        },
+        {
+          publicKey: 'iIQ5ZH0pF_Gk6nJzK'
         }
       ).then(() => {
         alert('Message sent successfully!');
@@ -1352,7 +1359,15 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMessageToolState();
       }).catch((error) => {
         console.error('EmailJS error:', error);
-        alert('Failed to send message. Please try again.');
+
+        const status = error && error.status ? error.status : 'Unknown status';
+        const details =
+          error && (error.text || error.message)
+            ? (error.text || error.message)
+            : 'Unknown EmailJS error';
+
+        alert(`EmailJS failed (${status}): ${details}`);
+
         contactSendBtn.disabled = false;
         contactSendBtn.innerHTML = originalText;
         updateContactSendState();
