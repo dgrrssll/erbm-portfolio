@@ -1335,17 +1335,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const originalText = contactSendBtn.innerHTML;
       contactSendBtn.innerHTML = '<img class="contact-send-icon" alt="send" width="40" height="30" src="assets/sendmail.png" /><p>Sending...</p>';
 
+      const sentTime = new Intl.DateTimeFormat('en-PH', {
+        timeZone: 'Asia/Manila',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      }).format(new Date());
+
       emailjs.send(
         'service_ufnjcsb',
         'template_batg7sj',
         {
           // These names must exactly match the EmailJS template variables:
-          // {{name}}, {{email}}, {{subject}}, {{title}}, and {{message}}
+          // {{name}}, {{email}}, {{subject}}, {{title}}, {{message}}, and {{time}}
           name: fromEmail,
           email: fromEmail,
           subject: subject,
           title: subject,
-          message: message
+          message: message,
+          time: sentTime
         },
         {
           publicKey: 'iIQ5ZH0pF_Gk6nJzK'
