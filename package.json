@@ -6,5 +6,8 @@
     "dev": "npx serve -s . -l 3000",
     "start": "npx serve -s . -l 3000",
     "build": "node build.js"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
